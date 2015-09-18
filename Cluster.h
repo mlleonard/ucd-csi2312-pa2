@@ -5,7 +5,20 @@
 #ifndef CLUSTERING_CLUSTER_H
 #define CLUSTERING_CLUSTER_H
 
+#include "Point.h"
 
+namespace Clustering {
+
+    typedef Point *PointPtr;
+    typedef struct Lnode *LnodePtr;
+
+    struct{
+
+        PointPtr p;
+        LnodePtr next;
+
+    };
+}
 
 
 class Cluster {
