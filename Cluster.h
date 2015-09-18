@@ -31,7 +31,7 @@ namespace Clustering {
         Cluster &operator=(const Cluster&);         //overloaded operator
         ~Cluster();                                 //destructor
 
-        //setters which call add and remove
+        //Mutators which call add and remove
 
         void add(const PointPtr&);
         const PointPtr &remove(const PointPtr&);
