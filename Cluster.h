@@ -18,6 +18,30 @@ namespace Clustering {
         LnodePtr next;
 
     };
+
+    class Cluster{
+        int size;
+        LnodePtr points;
+
+    public:
+
+        Cluster() : size(0), points{nullptr} {};    //default constructor
+
+        Cluster(const Cluster&);                    //copy constructor
+        Cluster &operator=(const Cluster&);         //overloaded operator
+        ~Cluster();                                 //destructor
+
+        //setters which call add and remove
+
+        void add(const PointPtr&);
+        const PointPtr &remove(const PointPtr&);
+
+
+
+
+
+
+    };
 }
 
 
