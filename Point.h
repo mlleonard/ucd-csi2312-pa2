@@ -13,12 +13,12 @@ namespace Clustering {
     class Point{
 
         int dim;        //number of dimensons of point
-        double *values;  //values associated with dimensions
+        double *values[];  //values associated with dimensions
 
     public:
 
         Point(int);             //Constructor created with just dimensions
-        Point(int, double *);   //Constructor created with dimensions and values
+        Point(int, double *[]);   //Constructor created with dimensions and values
 
         Point(const Point&);    //Copy Constructor
         Point &operator=(const Point&);     //Overloaded = operator
@@ -27,8 +27,20 @@ namespace Clustering {
         //Accessors and Mutators
 
         int getDim() const { return dim; };
-        void setValue(int, double);
-        double getValue(int) const;
+        void setValue(int, double[]);
+        double* getValue(int) const;
+
+        double distanceTo(const Point&);
+
+        Point &operator*=(const Point&);
+        Point &operator/=(const Point&);
+        const Point operator*(double) const;
+        const Point operator/(double) const;
+
+        double &operator[](int index) {return values[index-1];}
+
+
+
 
 
 

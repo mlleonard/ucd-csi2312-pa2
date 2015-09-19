@@ -3,3 +3,5 @@
 //
 
 #include "Cluster.h"
+using namespace Clustering;
+
