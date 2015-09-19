@@ -27,9 +27,9 @@ namespace Clustering {
 
         //Accessors and Mutators
 
-        int getDim() const { return dim; };
-        void setValue(int, double[]);
-        double* getValue(int) const;
+        int getDim() const;
+        void setValue(int, double);
+        double getValue(int) const;
 
         double distanceTo(const Point&);
 

@@ -12,7 +12,7 @@ namespace Clustering {
     typedef Point *PointPtr;
     typedef struct Lnode *LnodePtr;
 
-    struct{
+    struct LinkedList{
 
         PointPtr p;
         LnodePtr next;
