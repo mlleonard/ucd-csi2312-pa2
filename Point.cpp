@@ -10,7 +10,7 @@ Point::Point(int m_dim)
     dim = m_dim;
 }
 
-Point::Point(int m_dim, double * m_values[])
+Point::Point(int m_dim, double  m_values[])
 {
     dim = m_dim;
 
@@ -28,7 +28,7 @@ Point::Point(const Point & source)
 
     for (int i = 0; i < dim; i++)
     {
-        *(values+i) = source.getValue(dim);
+        value[i] = source.getValue(dim)[i];
     }
 
 }

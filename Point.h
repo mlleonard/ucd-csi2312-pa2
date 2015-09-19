@@ -13,12 +13,13 @@ namespace Clustering {
     class Point{
 
         int dim;        //number of dimensons of point
-        double *values[];  //values associated with dimensions
+        double values[];  //values associated with dimensions
+
 
     public:
 
         Point(int);             //Constructor created with just dimensions
-        Point(int, double *[]);   //Constructor created with dimensions and values
+        Point(int, double []);   //Constructor created with dimensions and values
 
         Point(const Point&);    //Copy Constructor
         Point &operator=(const Point&);     //Overloaded = operator
