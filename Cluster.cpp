@@ -11,13 +11,13 @@ using namespace Clustering;
 }*/
 
 
-void Cluster::add(const PointPtr & sourcePoint) {
+void Cluster::add(const PointPtr sourcePoint) {
     bool moreToSearch;
     Lnode *predLoc;
     Lnode *newNode;
     current = points;
 
-    if (size = 0) {
+    if (size == 0) {
         newNode = new Lnode;
         newNode->p = sourcePoint;
 

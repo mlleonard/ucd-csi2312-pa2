@@ -14,13 +14,13 @@ Point::Point(int m_dim)
     dim = m_dim;
 }
 
-Point::Point(int m_dim, double  m_values[])
+Point::Point(int m_dim, dArray m_dArray)
 {
     dim = m_dim;
 
     for (int i = 0; i<m_dim; i++)
     {
-        values[i] = m_values[i];
+        values[i] = m_dArray.getValue(i);
     }
 
 }

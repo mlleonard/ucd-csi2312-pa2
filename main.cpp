@@ -1,5 +1,6 @@
 #include "Point.h"
-//#include "Cluster.h"
+#include "darray.h"
+#include "Cluster.h"
 #include <iostream>
 //#include <stdlib.h>
 
@@ -8,16 +9,70 @@ using namespace std;
 
 
 int main() {
-    int *dimPointer;
-    dimPointer = new userDim;
-    double userValues[userDim];
+
     int arraySize = 0;
+    int userDim = 0;
     int Points[arraySize];
+    int numberOfPoints;
     int count=0;
     int pdim=0;
     double pvalue;
     int qdim;
     double qvalue;
+
+    Cluster myClust;
+
+    cout << "Please input the number of points you will be entering" << endl;
+    cin >> numberOfPoints;
+
+    for(int i = 0; i < numberOfPoints; i++)
+    {
+        cout << "Please input the number of Dimensions of your point" << endl;
+        cin >> userDim;
+
+        dArray myArr(userDim);
+
+        cout << "Please input the Values of those dimensions" << endl;
+
+        for (int i = 0; i < userDim; i++) {
+            double temp;
+            cin >> temp;
+            myArr.insert(temp);
+        }
+
+        Point myPoint(userDim, myArr);
+        myClust.add(&myPoint);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //cout << "Please enter how many points you would like to input" << endl;
 
@@ -76,7 +131,7 @@ int main() {
 */
     //*********************TEST FOR OVERLOADED OPERATORS******************************
 
-
+/*
     cout << "Please enter the first dimension"<< endl;
     cin >> userDim;
 
@@ -113,7 +168,7 @@ int main() {
         cout << "a is greater than b" << endl;
     }
 
-
+*/
     return 0;}
 
 

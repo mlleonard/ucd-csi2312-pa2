@@ -21,6 +21,8 @@ dArray::dArray(size_type initial_capacity)
     arrayPointer = new value_type[DEFAULT_CAPACITY];
 }
 
+//**********Copy Constructor****************************
+
 dArray::dArray(const dArray& source)
 {
     DEFAULT_CAPACITY = source.getDEFAULT_CAPACITY();
@@ -38,8 +40,34 @@ dArray::dArray(const dArray& source)
 
 dArray::~dArray()
 {
-    delete [] dArray;
+    delete [] arrayPointer;
 }
+
+void dArray::insert(const value_type& entry)
+{
+    if ( size == DEFAULT_CAPACITY )
+    {
+        resize(size+1);
+    }
+    arrayPointer[size] = entry;
+    ++size;
+}
+void dArray::resize(size_type new_capacity)
+{
+    value_type *largerArray;
+
+    largerArray = new value_type[new_capacity];
+    copy(arrayPointer, arrayPointer+size, largerArray);
+    delete [] arrayPointer;
+    arrayPointer = largerArray;
+    DEFAULT_CAPACITY = new_capacity;
+}
+
+Clustering::dArray::value_type dArray::getValue(size_type i)
+{
+    return arrayPointer[i];
+}
+
 
 
         

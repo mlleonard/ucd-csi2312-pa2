@@ -6,6 +6,7 @@
 #define CLUSTERING_CLUSTER_H
 
 #include "Point.h"
+#include "darray.h"
 
 namespace Clustering {
 
@@ -29,7 +30,7 @@ namespace Clustering {
     public:
 
 
-        Cluster() : size(0), points{nullptr} {};    //default constructor
+        Cluster() : size(0), points(nullptr) {};    //default constructor
 
         Cluster(const Cluster&);                    //copy constructor
         Cluster &operator=(const Cluster&);         //overloaded operator
@@ -37,7 +38,7 @@ namespace Clustering {
 
         //Mutators which call add and remove
 
-        void add(const PointPtr&);
+        void add(const PointPtr);
         const PointPtr &remove(const PointPtr&);
 
 
