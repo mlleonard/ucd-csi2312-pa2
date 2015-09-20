@@ -19,7 +19,8 @@ namespace Clustering {
 
     };
 
-    class Cluster{
+    class Cluster
+    {
         int size;
         LnodePtr points;    //head
         LnodePtr current;
@@ -41,18 +42,11 @@ namespace Clustering {
 
 
 
-
-
-
-
-
     };
-}
-
-
-class Cluster {
-
 };
+
+
+
 
 
 #endif //UCD_CSI2312_PA2_CLUSTER_H

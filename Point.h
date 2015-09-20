@@ -7,6 +7,7 @@
 
 #include <iostream>
 
+
 namespace Clustering {
 
 
@@ -42,7 +43,204 @@ namespace Clustering {
 
         //Friends
 
-        friend bool operator>(const Point&, const Point&);
+        friend bool operator>(const Point &a, const Point &b)
+        {
+            bool checking;
+            int biggerDim = 0;
+            int smallerDim = 0;
+            int aDim = a.getDim();
+            int bDim = b.getDim();
+
+
+            if (bDim > aDim)
+            {
+                biggerDim = bDim;
+                smallerDim = aDim;
+                while (checking) {
+                    int count = 0;
+
+                    if (a.getValue(count) == b.getValue(count) && count < smallerDim)
+                    {
+                        count++;
+                    }
+                    else if (a.getValue(count) == b.getValue(count) && count == smallerDim)
+                    {
+                        checking = false;
+                    }
+                    else if (a.getValue(count) > b.getValue(count))
+                    {
+                        return true;
+                    }
+
+                    else
+                    {
+                        checking = false;
+                    }
+
+                }
+                return false;
+            }
+
+            else
+            {
+                biggerDim = aDim;
+                smallerDim = bDim;
+                while (checking)
+                {
+                    int count = 0;
+
+                    if (a.getValue(count) == b.getValue(count) && count < smallerDim)
+                    {
+                        count++;
+                    }
+                    else if (a.getValue(count) == b.getValue(count) && count == smallerDim)
+                    {
+                        checking = false;
+                    }
+                    else if (a.getValue(count) < b.getValue(count))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        checking = false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        friend bool operator<(const Point &a, const Point &b)
+        {
+
+            if(a.getDim() == b.getDim())
+            {
+                bool myBool = false;
+                for(int i = 0; i < a.getDim(); i++)
+                {
+                    if(a.getValue(i) < b.getValue(i))
+                    {
+                        myBool = true ;
+                    }
+                }
+                return myBool;
+            }
+            else if(a.getDim() > b.getDim())
+            {
+                bool aBigger = false;
+                for(int i = 0; i < b.getDim(); i++)
+                {
+                    if(a.getValue(i) < b.getValue(i))
+                    {
+                        aBigger = true;
+                    }
+                }
+                return aBigger;
+            }
+            else
+            {
+                bool aBigger = false;
+                for(int i = 0; i < a.getDim(); i++)
+                {
+                    if(a.getValue(i) < b.getValue(i))
+                    {
+                        aBigger = true;
+                    }
+                }
+                return aBigger;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*
+            bool checking=true;
+            int biggerDim = 0;
+            int smallerDim = 0;
+            int count = 0;
+            int aDim = a.getDim();
+            int bDim = b.getDim();
+
+
+            if (bDim > aDim)
+            {
+
+                biggerDim = bDim;
+                smallerDim = aDim;
+                while (checking && count < biggerDim) {
+
+
+                    if((a.getValue(count) == b.getValue(count)) && (count < smallerDim))
+                    {
+                        checking == true;
+                        count++;
+                    }
+                    if (a.getValue(count) == b.getValue(count) && count == smallerDim)
+                    {
+                        checking == false;
+                    }
+                    else if (a.getValue(count) > b.getValue(count))
+                    {
+                        return false;
+                    }
+
+                    else
+                    {
+                        checking == false;
+                    }
+
+                }
+                return true;
+            }
+
+            else
+            {
+                biggerDim = aDim;
+                smallerDim = bDim;
+
+                while (checking && count < biggerDim)
+                {
+                    std::cout << "also made it here";
+                    if((a.getValue(count) == b.getValue(count)) && (count < smallerDim)) {
+                        std::cout<< "I even made it here";
+                        checking == true;
+                        count++;
+                    }
+
+
+                    if (a.getValue(count) == b.getValue(count) && count == smallerDim)
+                    {
+                        checking == false;
+                    }
+                    else if (a.getValue(count) < b.getValue(count))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        checking == false;
+                    }
+                }
+
+                return false;
+            }
+        */}
+
 
 
 
@@ -52,7 +250,7 @@ namespace Clustering {
 
 
     };
-}
+};
 
 
 

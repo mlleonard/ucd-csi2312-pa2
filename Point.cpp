@@ -6,6 +6,7 @@
 #include <cmath>
 using namespace Clustering;
 
+
 //****************Constructors**********************
 
 Point::Point(int m_dim)
@@ -108,73 +109,8 @@ Point& Point::operator*=(const Point& source)
 
 //***********************Overloaded comparisons***************
 
-bool operator>(const Point &a, const Point &b)
-{
-
-    bool checking;
-    int biggerDim = 0;
-    int smallerDim = 0;
-    int aDim = a.getDim();
-    int bDim = b.getDim();
-
-
-    if (bDim > aDim)
-    {
-        biggerDim = bDim;
-        smallerDim = aDim;
-        while (checking) {
-            int count = 0;
-
-            if (a.getValue(count) == b.getValue(count) && count < smallerDim)
-            {
-                count++;
-            }
-            else if (a.getValue(count) == b.getValue(count) && count == smallerDim)
-            {
-                checking = false;
-            }
-            else if (a.getValue(count) > b.getValue(count))
-            {
-                return true;
-            }
-
-            else
-            {
-                checking = false;
-            }
-
-        }
-        return false;
-    }
-
-    else
-    {
-        biggerDim = aDim;
-        smallerDim = bDim;
-        while (checking)
-        {
-            int count = 0;
-
-            if (a.getValue(count) == b.getValue(count) && count < smallerDim)
-            {
-                count++;
-            }
-            else if (a.getValue(count) == b.getValue(count) && count == smallerDim)
-            {
-                 checking = false;
-            }
-            else if (a.getValue(count) < b.getValue(count))
-            {
-                return false;
-            }
-            else
-            {
-                checking = false;
-            }
-        }
-        return true;
-    }
 
 
 
-}
+
+

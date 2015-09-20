@@ -6,8 +6,10 @@
 using namespace Clustering;
 using namespace std;
 
+
 int main() {
-    int userDim=0;
+    int *dimPointer;
+    dimPointer = new userDim;
     double userValues[userDim];
     int arraySize = 0;
     int Points[arraySize];
@@ -81,8 +83,9 @@ int main() {
     cout <<"Please enter the values" << endl;
     for(int i = 0; i < userDim; i++)
     {
-        cin >> userValues[userDim];
+        cin >> userValues[i];
     }
+
 
     Point a(userDim, userValues);
 
@@ -92,21 +95,25 @@ int main() {
     cout << "Please enter the values" << endl;
     for(int i= 0; i < userDim; i++)
     {
-        cin >> userValues[userDim];
+        cin >> userValues[i];
     }
 
     Point b(userDim, userValues);
 
+    cout << a.getDim();
+    cout << a.getValue(0);
+    cout << "made it here" << endl;
 
 
-    if (&a>&b)
+    if (a<b)
     {
-        cout << "a is greater than b" << endl;
-    }
-    else{
         cout << "a is less than b" << endl;
     }
+    else{
+        cout << "a is greater than b" << endl;
+    }
 
 
-    return 0;
-}
+    return 0;}
+
+

@@ -10,36 +10,36 @@ using namespace Clustering;
 
 }*/
 
-void Cluster::add(const PointPtr & sourcePoint)
-{
+
+void Cluster::add(const PointPtr & sourcePoint) {
     bool moreToSearch;
-    Lnode* predLoc;
-    Lnode* newNode;
+    Lnode *predLoc;
+    Lnode *newNode;
     current = points;
 
-    if (size=0)
-    {
+    if (size = 0) {
         newNode = new Lnode;
         newNode->p = sourcePoint;
 
         newNode->next = current;
         predLoc->next = newNode;
 
-        size++
+        size++;
     }
-
-    else if (size>0)
+    while (moreToSearch)
     {
 
-    }
-    while(moreToSearch)
-    {
-        if (current -> p < sourcePoint)
+        if (size > 0)
         {
-            predLoc = current;
-            current = current ->next;
-            moreToSearch = (current != nullptr);
+            if (current->p > sourcePoint)
+            {
+                newNode = new Lnode;
+                newNode->p < sourcePoint;
+                moreToSearch = (current != nullptr);
+            }
+
         }
+
         else
         {
             moreToSearch = false;
@@ -47,7 +47,7 @@ void Cluster::add(const PointPtr & sourcePoint)
         newNode = new Lnode;
         newNode->p = sourcePoint;
 
-        if(predLoc == nullptr)
+        if (predLoc == nullptr)
         {
             newNode->next = current;
             predLoc->next = newNode;
@@ -55,6 +55,8 @@ void Cluster::add(const PointPtr & sourcePoint)
 
         size++;
     }
+
+
 
     Lnode node;
 
