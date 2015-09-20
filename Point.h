@@ -40,6 +40,11 @@ namespace Clustering {
 
         double &operator[](int index) {return values[index-1];}
 
+        //Friends
+
+        friend bool operator>(const Point&, const Point&);
+
+
 
 
 

@@ -43,8 +43,8 @@ Point::Point(const Point & source)
 
 
 }
-
-Point& Point::operator=(const Point& Source)
+//TODO overload operator, all is well here except the dynamic allocation of the point class which is needed
+/*Point& Point::operator=(const Point& Source)
 {
     dim = Source.getDim();
 
@@ -54,7 +54,7 @@ Point& Point::operator=(const Point& Source)
     }
 
     return Point;
-}
+}*/
 Point::~Point() {
 }
 
@@ -89,13 +89,92 @@ double Point::distanceTo(const Point& other)
 
     return distance;
 }
+
+//**********************Overlaoded operations**************
 Point& Point::operator*=(const Point& source)
 {
-    double sum[];
+
+    double sum[dim];
     for(int i = 0; i<dim; i++)
     {
         sum[i] = values[i] * source.getValue(i);
-
     }
+
+    Point product(dim, sum);
+
+    return product;
+}
+
+
+//***********************Overloaded comparisons***************
+
+bool operator>(const Point &a, const Point &b)
+{
+
+    bool checking;
+    int biggerDim = 0;
+    int smallerDim = 0;
+    int aDim = a.getDim();
+    int bDim = b.getDim();
+
+
+    if (bDim > aDim)
+    {
+        biggerDim = bDim;
+        smallerDim = aDim;
+        while (checking) {
+            int count = 0;
+
+            if (a.getValue(count) == b.getValue(count) && count < smallerDim)
+            {
+                count++;
+            }
+            else if (a.getValue(count) == b.getValue(count) && count == smallerDim)
+            {
+                checking = false;
+            }
+            else if (a.getValue(count) > b.getValue(count))
+            {
+                return true;
+            }
+
+            else
+            {
+                checking = false;
+            }
+
+        }
+        return false;
+    }
+
+    else
+    {
+        biggerDim = aDim;
+        smallerDim = bDim;
+        while (checking)
+        {
+            int count = 0;
+
+            if (a.getValue(count) == b.getValue(count) && count < smallerDim)
+            {
+                count++;
+            }
+            else if (a.getValue(count) == b.getValue(count) && count == smallerDim)
+            {
+                 checking = false;
+            }
+            else if (a.getValue(count) < b.getValue(count))
+            {
+                return false;
+            }
+            else
+            {
+                checking = false;
+            }
+        }
+        return true;
+    }
+
+
 
 }

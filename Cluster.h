@@ -12,7 +12,7 @@ namespace Clustering {
     typedef Point *PointPtr;
     typedef struct Lnode *LnodePtr;
 
-    struct LinkedList{
+    struct Lnode{
 
         PointPtr p;
         LnodePtr next;
@@ -21,9 +21,12 @@ namespace Clustering {
 
     class Cluster{
         int size;
-        LnodePtr points;
+        LnodePtr points;    //head
+        LnodePtr current;
+
 
     public:
+
 
         Cluster() : size(0), points{nullptr} {};    //default constructor
 
@@ -35,6 +38,8 @@ namespace Clustering {
 
         void add(const PointPtr&);
         const PointPtr &remove(const PointPtr&);
+
+
 
 
 

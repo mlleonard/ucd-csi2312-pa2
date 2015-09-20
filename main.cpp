@@ -17,11 +17,11 @@ int main() {
     int qdim;
     double qvalue;
 
-    cout << "Please enter how many points you would like to input" << endl;
+    //cout << "Please enter how many points you would like to input" << endl;
 
-    cin >> arraySize;
+    //cin >> arraySize;
 
-    while (count < arraySize)
+/*    while (count < arraySize)
     {
 
 
@@ -34,7 +34,7 @@ int main() {
         }
 
         new Point(userDim, userValues);
-    }
+    }*/
 
     /*cout << "Please enter the number of dimensions" << endl;
     cin >> userDim;
@@ -75,8 +75,37 @@ int main() {
     //*********************TEST FOR OVERLOADED OPERATORS******************************
 
 
+    cout << "Please enter the first dimension"<< endl;
+    cin >> userDim;
+
+    cout <<"Please enter the values" << endl;
+    for(int i = 0; i < userDim; i++)
+    {
+        cin >> userValues[userDim];
+    }
+
+    Point a(userDim, userValues);
+
+    cout << "Please enter the second dimension" << endl;
+    cin >> userDim;
+
+    cout << "Please enter the values" << endl;
+    for(int i= 0; i < userDim; i++)
+    {
+        cin >> userValues[userDim];
+    }
+
+    Point b(userDim, userValues);
 
 
+
+    if (&a>&b)
+    {
+        cout << "a is greater than b" << endl;
+    }
+    else{
+        cout << "a is less than b" << endl;
+    }
 
 
     return 0;
