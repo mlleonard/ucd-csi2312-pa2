@@ -7,8 +7,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Cluster.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Point.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Point.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/darray.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/darray.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
