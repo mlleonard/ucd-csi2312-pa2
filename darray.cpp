@@ -1,7 +1,7 @@
 //
 // Created by Madeline Leonard on 9/19/15.
 //
-
+/*
 #include "darray.h"
 #include <iostream>
 using namespace Clustering;
@@ -68,7 +68,7 @@ Clustering::dArray::value_type dArray::getValue(size_type i)
     return arrayPointer[i];
 }
 
-
+*/
 
         
 

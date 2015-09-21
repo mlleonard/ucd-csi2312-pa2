@@ -1,7 +1,7 @@
 //
 // Created by Madeline Leonard on 9/19/15.
 //
-
+/*
 #ifndef UCD_CSI2312_PA2_DARRAY_H
 #define UCD_CSI2312_PA2_DARRAY_H
 #include <iostream>
@@ -49,4 +49,4 @@ namespace Clustering {
     };
 }
 
-#endif //UCD_CSI2312_PA2_DARRAY_H
+#endif //UCD_CSI2312_PA2_DARRAY_*/
