@@ -1,53 +1,45 @@
 //
-// Created by Madeline Leonard on 9/18/15.
+// Created by Madeline Leonard on 9/20/15.
 //
 
-#ifndef CLUSTERING_CLUSTER_H
-#define CLUSTERING_CLUSTER_H
+#ifndef REDO_CLUSTER_H
+#define REDO_CLUSTER_H
 
-#include "Point.h"
-#include "darray.h"
+#include "point.h"
+typedef Point* pointPtr;
+typedef struct node* nodePtr;
 
-namespace Clustering {
-
-    typedef Point *PointPtr;
-    typedef struct Lnode *LnodePtr;
-
-    struct Lnode{
-
-        PointPtr p;
-        LnodePtr next;
-
-    };
-
-    class Cluster
-    {
-        int size;
-        LnodePtr points;    //head
-        LnodePtr current;
-
-
-    public:
-
-
-        Cluster() : size(0), points(nullptr) {};    //default constructor
-
-        Cluster(const Cluster&);                    //copy constructor
-        Cluster &operator=(const Cluster&);         //overloaded operator
-        ~Cluster();                                 //destructor
-
-        //Mutators which call add and remove
-
-        void add(const PointPtr);
-        const PointPtr &remove(const PointPtr&);
-
-
-
-    };
+struct node
+{
+    nodePtr before;
+    nodePtr next;
+    pointPtr value;
 };
 
 
+class Cluster {
+    nodePtr head;
+    nodePtr currentNode;
+    int size;
+public:
+    //Default Constructor
+    Cluster() : head(nullptr), size(0)  { };
+
+    //Copy Constructor
+    //Cluster(const Cluster&);
+    void add(const pointPtr sourcePoint);
+    void erase(const pointPtr sourcePoint);
+
+    friend std::ostream &operator<<(std::ostream &os, Cluster &cluster);
+    friend std::istream &operator>>(std::istream &is, Cluster &cluster);
+
+    friend bool operator==(const Cluster &lhs, const Cluster &rhs);
+    friend bool operator!=(const Cluster &lhs, const Cluster &rhs);
+
+    Cluster &operator+=(const Cluster &rhs); // union
+    Cluster &operator-=(const Cluster &rhs);
+    friend const Cluster operator+(const Cluster &lhs, const Cluster &rhs);
+};
 
 
-
-#endif //UCD_CSI2312_PA2_CLUSTER_H
+#endif //REDO_CLUSTER_H

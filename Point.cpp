@@ -1,113 +1,361 @@
 //
-// Created by Madeline Leonard on 9/18/15.
+// Created by Madeline Leonard on 9/20/15.
 //
+
+#include "point.h"
 #include <iostream>
-#include "Point.h"
 #include <cmath>
-using namespace Clustering;
 
+using namespace std;
 
-//****************Constructors**********************
-
-Point::Point(int m_dim)
-{
-    dim = m_dim;
+//***************CONSTRUCTORS**************
+Point::Point() {
+    DEFAULT_DIM = 1;
+    dim = 0;
+    valuesArray = new value_type[DEFAULT_DIM];
 }
 
-Point::Point(int m_dim, dArray m_dArray)
+Point::Point(size_type initial_capacity)
 {
-    dim = m_dim;
+    DEFAULT_DIM = initial_capacity;
+    dim = 0;
+    valuesArray = new value_type[DEFAULT_DIM];
 
-    for (int i = 0; i<m_dim; i++)
-    {
-        values[i] = m_dArray.getValue(i);
-    }
+}
+Point::Point(size_type initial_capacity, value_type valuesArray)
+{
+
+    DEFAULT_DIM = initial_capacity;
+    dim = 0;
+
 
 }
 
-//***************Big3**********************************
-//TODO fix copy constructor
+
+//**************COPY_CONSTRUCTOR************
 Point::Point(const Point & source)
 {
-    int m_dim;
+    DEFAULT_DIM = source.DEFAULT_DIM;
+    valuesArray = new value_type[DEFAULT_DIM];
 
-    //std::cout << "sourcegetdim is " << source.getDim() << std::endl;
-    m_dim= source.getDim();
-    dim = m_dim;
-    //std::cout << "sourcegetdim is " << source.getDim() << std::endl;
-
-    for (int i = 0; i < m_dim; i++)
+    for(int i = 0; i<source.getDim(); i++)
     {
-        values[i] = source.getValue(i);
-        //std::cout << "sourcegetdim is " << source.getDim() << std::endl;
+        valuesArray[i]=source.valuesArray[i];
     }
 
+    dim = source.getDim();
 
 }
-//TODO overload operator, all is well here except the dynamic allocation of the point class which is needed
-/*Point& Point::operator=(const Point& Source)
+
+//************Destructor*******************
+
+Point::~Point()
 {
-    dim = Source.getDim();
+    delete [] valuesArray;
+}
+
+//***********Dynamic Member variables**************
+
+/*Point::value_type Point::getValue(size_type i)
+{
+    return valuesArray[i];
+}*/
+
+void Point::insert(const value_type entry)
+{
+    if (dim == DEFAULT_DIM)
+    {
+        resize(dim +1);
+    }
+
+    valuesArray[dim] = entry;
+    ++dim;
+}
+
+void Point::resize(int new_capacity)
+{
+    value_type *largerValuesArray;
+
+    largerValuesArray = new value_type[new_capacity];
 
     for(int i = 0; i < dim; i++)
     {
-        values[i] = Source.getValue(i);
+        largerValuesArray[i] = valuesArray[i];
     }
+    delete [] valuesArray;
 
-    return Point;
-}*/
-Point::~Point() {
-}
+    DEFAULT_DIM = new_capacity;
 
-void Point::setValue(int m_dim, double m_value) {
+    valuesArray = new value_type [DEFAULT_DIM];
 
-    values[m_dim] = m_value;
-
-}
-
-int Point::getDim() const
-{
-    //std::cout << dim;
-    return dim;
-}
-
-double Point::getValue(int m_dim ) const
-{
-    return values[m_dim];
-}
-
-double Point::distanceTo(const Point& other)
-{
-    double sum=0;
-    double distance=0;
-
-    for(int i=0; i<dim; i++)
+    for(int i = 0; i < dim; i++)
     {
-        sum += pow((other.getValue(i)-values[i]),2);
+        valuesArray[i] = largerValuesArray[i];
     }
-    distance = sqrt(sum);
 
+    delete [] largerValuesArray;
+
+}
+
+//***********Point Member Functions*****************
+
+double Point::distanceTo(Point & other)
+{
+    value_type sum=0;
+    value_type distance;
+
+    for (int i = 0; i<dim; i++)
+    {
+        sum += pow((other.getValue(i) + valuesArray[i]),2);
+    }
+
+    distance = sqrt(sum);
 
     return distance;
 }
 
-//**********************Overlaoded operations**************
-Point& Point::operator*=(const Point& source)
+Point& Point::operator*=(double digit)
 {
 
-    double sum[dim];
-    for(int i = 0; i<dim; i++)
+    for( int i = 0; i<dim; i++)
     {
-        sum[i] = values[i] * source.getValue(i);
+        this->valuesArray[i] = (this->getValue(i) * digit);
     }
 
-    Point product(dim, sum);
+    return *this;
 
-    return product;
+}
+
+Point& Point::operator/=(double digit)
+{
+
+    for( int i = 0; i < dim; i++)
+    {
+        this->valuesArray[i] = (this->getValue(i) / digit);
+    }
+
+    return *this;
 }
 
 
-//***********************Overloaded comparisons***************
+const Point Point::operator*(double digit)
+{
+    Point *productPoint;
+    productPoint = new Point;
+
+    for (int i = 0; i < dim; i++)
+    {
+        productPoint->insert(this->getValue(i) * digit);
+    }
+
+
+    return *productPoint;
+}
+
+const Point Point::operator/(double digit)
+{
+    Point *productPoint;
+    productPoint = new Point;
+
+    for (int i = 0; i < dim; i++)
+
+    {
+        productPoint-> insert(this->getValue(i) * digit);
+    }
+
+    return *productPoint;
+}
+
+
+Point &operator+=(Point &point1, const Point &point2)
+{
+
+    for (int i = 0; i < point1.getDim(); i++)
+    {
+        point1.valuesArray[i] = (point1.getValue(i) + point2.getValue(i));
+    }
+
+    return point1;
+}
+
+Point &operator-=(Point &point1, const Point &point2)
+{
+    for (int i = 0; i < point1.getDim(); i++)
+    {
+        point1.valuesArray[i] = (point1.getValue(i) - point2.getValue(i));
+    }
+
+    return point1;
+}
+
+
+const Point operator-(const Point &point1, const Point &point2)
+{
+    Point *differencePoint;
+    differencePoint = new Point;
+
+    for (int i = 0; i < point1.getDim(); i++)
+    {
+        differencePoint->insert(point1.getValue(i)-point2.getValue(i));
+    }
+
+    return *differencePoint;
+}
+
+const Point operator+(const Point &point1, const Point &point2)
+{
+    Point *sumPoint;
+    sumPoint = new Point;
+
+    for (int i = 0; i < point1.getDim(); i++)
+    {
+        sumPoint->insert(point1.getValue(i)-point2.getValue(i));
+    }
+
+    return *sumPoint;
+}
+
+bool operator==(const Point &point1, const Point &point2)
+{
+    bool checking = true;
+
+    for(int i = 0; i < point1.getDim(); i++ )
+    {
+        if(point1.getValue(i)==point2.getValue(i))
+        {
+            checking = true;
+        }
+        else
+        {
+            checking = false;
+        }
+    }
+
+    return checking;
+}
+
+bool operator!=(const Point &point1, const Point &point2)
+{
+    bool checking = true;
+
+    for(int i = 0; i < point1.getDim(); i++ )
+    {
+        if(point1.getValue(i)!=point2.getValue(i))
+        {
+            checking = true;
+        }
+        else
+        {
+            checking = false;
+        }
+    }
+
+    return checking;
+}
+
+bool operator<(const Point &point1, const Point &point2)
+{
+    bool checking = true;
+
+    for(int i = 0; i < point1.getDim(); i++)
+    {
+        if(point1.getValue(i)<point2.getValue(i))
+        {
+            checking = true;
+        }
+        else
+        {
+            checking = false;
+        }
+    }
+
+    return checking;
+}
+
+bool operator>(const Point &point1, const Point &point2)
+{
+    bool checking = true;
+
+    for(int i = 0; i < point1.getDim(); i++)
+    {
+        if(point1.getValue(i)>point2.getValue(i))
+        {
+            checking = true;
+        }
+        else
+        {
+            checking = false;
+        }
+    }
+    return checking;
+}
+
+bool operator<=(const Point &point1, const Point &point2)
+{
+    bool checking = true;
+
+    for(int i = 0; i < point1.getDim(); i++)
+    {
+        if(point1.getValue(i)<=point2.getValue(i))
+        {
+            checking = true;
+        }
+        else
+        {
+            checking = false;
+        }
+    }
+
+    return checking;
+}
+
+bool operator>=(const Point &point1, const Point &point2)
+{
+    bool checking = true;
+
+    for(int i = 0; i <= point1.getDim(); i++)
+    {
+        if(point1.getValue(i)>=point2.getValue(i))
+        {
+            checking = true;
+        }
+        else
+        {
+            checking = false;
+        }
+    }
+
+    return checking;
+}
+
+std::ostream &operator<<(ostream &os, const Point &point)
+{
+    for(int i = 0; i < point.getDim(); i++)
+    {
+        os << point.getValue(i) << " ";
+    }
+    return os;
+}
+
+
+
+std::istream &operator>>(istream &is, Point &point) {
+
+    int numPoints;
+    double values=0;
+
+    cout << "How many points would you like to enter" << endl;
+    cin >> numPoints;
+
+    for(int i = 0; i < numPoints; i++)
+    {
+        cout << "Please insert values";
+
+        point.insert(values);
+    }
+    return is;
+}
+
 
 
 

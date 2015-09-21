@@ -1,50 +1,111 @@
-#include "Point.h"
-#include "darray.h"
-#include "Cluster.h"
 #include <iostream>
-//#include <stdlib.h>
+#include "point.h"
+#include "cluster.h"
 
-using namespace Clustering;
 using namespace std;
 
 
 int main() {
 
-    int arraySize = 0;
-    int userDim = 0;
-    int Points[arraySize];
-    int numberOfPoints;
-    int count=0;
-    int pdim=0;
-    double pvalue;
-    int qdim;
-    double qvalue;
+    //**************Testing general with While Loop*******************
+/*
+    int numOfPoints;    // number of points being input by the user
+    int count = 0;          // counter for while loop
+    int dim;
+    double value;
 
-    Cluster myClust;
+    cout << "Please enter how many points you would like to create" << endl;
 
-    cout << "Please input the number of points you will be entering" << endl;
-    cin >> numberOfPoints;
+    cin >> numOfPoints;
 
-    for(int i = 0; i < numberOfPoints; i++)
+    while( count < numOfPoints)
     {
-        cout << "Please input the number of Dimensions of your point" << endl;
-        cin >> userDim;
+        Point point;
 
-        dArray myArr(userDim);
 
-        cout << "Please input the Values of those dimensions" << endl;
+        cout << "Please enter the number of dimensions" << endl;
+        cin >> dim;
 
-        for (int i = 0; i < userDim; i++) {
-            double temp;
-            cin >> temp;
-            myArr.insert(temp);
+        point.resize(dim);
+
+        cout << point.getDEFAULT_DIM();
+
+        cout << "Now please enter the values for those points" << endl;
+
+        for( int i = 0; i < dim; i++)
+        {
+            cin >> value;
+            point.insert(value);
         }
 
-        Point myPoint(userDim, myArr);
-        myClust.add(&myPoint);
+        for ( int i = 0; i < dim; i++)
+        {
+            cout << point.getValue(i) << endl;
+        }
+        count++;
 
+
+    }*/
+    //******************Testing two Points****************
+
+    int userDim = 0;
+    double value;
+
+
+    cout << "Please enter the dimensions of the first point" << endl;
+    cin >> userDim;
+
+    Point a;
+
+    a.resize(userDim);
+
+    cout << "Please enter the values of those dimensions" << endl;
+
+    for ( int i = 0; i < userDim; i++)
+    {
+        cin >> value;
+        a.insert(value);
     }
 
+    pointPtr myPointa;
+    myPointa = &a;
+
+    Cluster cluster1;
+
+    cluster1.add(myPointa);
+
+    cout << "Please enter the dimensions of the second point" << endl;
+    cin >> userDim;
+
+    Point b;
+
+    b.resize(userDim);
+
+    cout << "Please enter the values of those dimensions" << endl;
+
+    for ( int i = 0; i < userDim; i++)
+    {
+        cin >> value;
+        b.insert(value);
+    }
+
+    pointPtr myPointb;
+    myPointb = &b;
+
+    Cluster cluster2;
+
+    cluster2.add(myPointb);
+
+
+
+
+    cout << (cluster1 != cluster2);
+
+
+
+
+
+}
 
 
 

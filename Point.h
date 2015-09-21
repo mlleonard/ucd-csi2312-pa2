@@ -1,259 +1,72 @@
 //
-// Created by Madeline Leonard on 9/18/15.
+// Created by Madeline Leonard on 9/20/15.
 //
 
-#ifndef UCD_CSI2312_PA2_POINT_H
-#define UCD_CSI2312_PA2_POINT_H
-
+#ifndef REDO_POINT_H
+#define REDO_POINT_H
 #include <iostream>
 
 
-namespace Clustering {
-
-    class dArray;
-
-    class Point{
-
-        int dim;    //number of dimensons of point
-        double values[];
-         //values associated with dimensions
-
-
-    public:
-
-        Point(int);             //Constructor created with just dimensions
-        Point(int, dArray);   //Constructor created with dimensions and values
-
-        Point(const Point&);    //Copy Constructor
-        Point &operator=(const Point&);     //Overloaded = operator
-        ~Point();               //Destructor for Point
-
-        //Accessors and Mutators
-
-        int getDim() const;
-        void setValue(int, double);
-        double getValue(int) const;
-
-        double distanceTo(const Point&);
-
-        Point &operator*=(const Point&);
-        Point &operator/=(const Point&);
-        const Point operator*(double) const;
-        const Point operator/(double) const;
-
-        double &operator[](int index) {return values[index-1];}
-
-        //Friends
-
-        friend bool operator>(const Point &a, const Point &b)
-        {
-            bool checking;
-            int biggerDim = 0;
-            int smallerDim = 0;
-            int aDim = a.getDim();
-            int bDim = b.getDim();
-
-
-            if (bDim > aDim)
-            {
-                biggerDim = bDim;
-                smallerDim = aDim;
-                while (checking) {
-                    int count = 0;
-
-                    if (a.getValue(count) == b.getValue(count) && count < smallerDim)
-                    {
-                        count++;
-                    }
-                    else if (a.getValue(count) == b.getValue(count) && count == smallerDim)
-                    {
-                        checking = false;
-                    }
-                    else if (a.getValue(count) > b.getValue(count))
-                    {
-                        return true;
-                    }
 
-                    else
-                    {
-                        checking = false;
-                    }
+class Point {
+    typedef int size_type;
+    typedef double value_type;
+    int dim;
+    size_type DEFAULT_DIM;
+    value_type *valuesArray;
 
-                }
-                return false;
-            }
+public:
+    //default constructot
+    Point();
+    //constructor
+    Point(size_type);
+    Point(size_type, value_type);
+    //copy constructor;
+    Point(const Point&);
+    //destructor
+    ~Point();
 
-            else
-            {
-                biggerDim = aDim;
-                smallerDim = bDim;
-                while (checking)
-                {
-                    int count = 0;
+    //member functions for dArray
+    size_type getDEFAULT_DIM() const {return DEFAULT_DIM;}
+    size_type getDim() const {return dim;}
+    value_type getValue(size_type i)const {return valuesArray[i];}
+    void insert(const value_type entry);
+    void resize(int);
+    bool isEmpty() const {return dim==0;}
+    bool isFull() const {return dim==DEFAULT_DIM;}
 
-                    if (a.getValue(count) == b.getValue(count) && count < smallerDim)
-                    {
-                        count++;
-                    }
-                    else if (a.getValue(count) == b.getValue(count) && count == smallerDim)
-                    {
-                        checking = false;
-                    }
-                    else if (a.getValue(count) < b.getValue(count))
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        checking = false;
-                    }
-                }
-                return true;
-            }
-        }
+    //member functions for Point class
 
-        friend bool operator<(const Point &a, const Point &b)
-        {
+    double distanceTo(Point&);
+    Point &operator*=(double);
+    Point &operator/=(double);
+    const Point operator*(double);
+    const Point operator/(double);
 
-            if(a.getDim() == b.getDim())
-            {
-                bool myBool = false;
-                for(int i = 0; i < a.getDim(); i++)
-                {
-                    if(a.getValue(i) < b.getValue(i))
-                    {
-                        myBool = true ;
-                    }
-                }
-                return myBool;
-            }
-            else if(a.getDim() > b.getDim())
-            {
-                bool aBigger = false;
-                for(int i = 0; i < b.getDim(); i++)
-                {
-                    if(a.getValue(i) < b.getValue(i))
-                    {
-                        aBigger = true;
-                    }
-                }
-                return aBigger;
-            }
-            else
-            {
-                bool aBigger = false;
-                for(int i = 0; i < a.getDim(); i++)
-                {
-                    if(a.getValue(i) < b.getValue(i))
-                    {
-                        aBigger = true;
-                    }
-                }
-                return aBigger;
-            }
+    double &operator[](int index) {return valuesArray[index-1];}
 
+    //friends!
 
+    friend Point &operator+=(Point &, const Point&);
+    friend Point &operator-=(Point &, const Point&);
+    friend const Point operator+(const Point&, const Point&);
+    friend const Point operator-(const Point&, const Point&);
 
+    //comparison overloaded operators
+    friend bool operator==(const Point &, const Point &);
+    friend bool operator!=(const Point &, const Point &);
+    friend bool operator<(const Point &, const Point &);
+    friend bool operator>(const Point &, const Point &);
+    friend bool operator<=(const Point &, const Point &);
+    friend bool operator>=(const Point &, const Point &);
 
+    friend std::ostream &operator<<(std::ostream &, const Point &);
+    friend std::istream & operator>>(std::istream &is, Point &point);
 
 
 
 
+};
 
 
-
-
-
-
-
-
-
-
-
-            /*
-            bool checking=true;
-            int biggerDim = 0;
-            int smallerDim = 0;
-            int count = 0;
-            int aDim = a.getDim();
-            int bDim = b.getDim();
-
-
-            if (bDim > aDim)
-            {
-
-                biggerDim = bDim;
-                smallerDim = aDim;
-                while (checking && count < biggerDim) {
-
-
-                    if((a.getValue(count) == b.getValue(count)) && (count < smallerDim))
-                    {
-                        checking == true;
-                        count++;
-                    }
-                    if (a.getValue(count) == b.getValue(count) && count == smallerDim)
-                    {
-                        checking == false;
-                    }
-                    else if (a.getValue(count) > b.getValue(count))
-                    {
-                        return false;
-                    }
-
-                    else
-                    {
-                        checking == false;
-                    }
-
-                }
-                return true;
-            }
-
-            else
-            {
-                biggerDim = aDim;
-                smallerDim = bDim;
-
-                while (checking && count < biggerDim)
-                {
-                    std::cout << "also made it here";
-                    if((a.getValue(count) == b.getValue(count)) && (count < smallerDim)) {
-                        std::cout<< "I even made it here";
-                        checking == true;
-                        count++;
-                    }
-
-
-                    if (a.getValue(count) == b.getValue(count) && count == smallerDim)
-                    {
-                        checking == false;
-                    }
-                    else if (a.getValue(count) < b.getValue(count))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        checking == false;
-                    }
-                }
-
-                return false;
-            }
-        */}
-
-
-
-
-
-
-
-
-
-    };
-}
-
-
-
-#endif //UCD_CSI2312_PA2_POINT_H
+#endif //REDO_POINT_H
