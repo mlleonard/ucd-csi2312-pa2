@@ -3,6 +3,7 @@
 #include "cluster.h"
 
 using namespace std;
+using namespace Clustering;
 
 
 int main() {
@@ -105,7 +106,7 @@ int main() {
 
 
 
-}
+
 
 
 
@@ -230,6 +231,7 @@ int main() {
     }
 
 */
-    return 0;}
+    return 0;
+}
 
 
