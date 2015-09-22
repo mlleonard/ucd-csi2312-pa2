@@ -28,7 +28,7 @@ typedef struct node* nodePtr;
         Cluster() : head(nullptr), size(0) { };
 
         //Copy Constructor
-        //Cluster(const Cluster&);
+        Cluster(const Cluster&);
         void add(const pointPtr sourcePoint);
 
         void erase(const pointPtr sourcePoint);
@@ -45,6 +45,9 @@ typedef struct node* nodePtr;
         Cluster &operator-=(const Cluster &rhs);
 
         friend const Cluster operator+(const Cluster &lhs, const Cluster &rhs);
+        friend const Cluster operator-(const Cluster &lhs, const Cluster &rhs);
+        friend const Cluster operator+(const Cluster &lhs, const pointPtr &rhs);
+        friend const Cluster operator-(const Cluster &lhs, const pointPtr &rhs);
     };
 
 };

@@ -33,7 +33,7 @@ namespace Clustering {
     }
 
 
-//**************COPY_CONSTRUCTOR************
+// **************COPY_CONSTRUCTOR************
     Point::Point(const Point &source) {
         DEFAULT_DIM = source.DEFAULT_DIM;
         valuesArray = new value_type[DEFAULT_DIM];
@@ -46,7 +46,7 @@ namespace Clustering {
 
     }
 
-//************Destructor*******************
+// ************Destructor*******************
 
     Point::~Point() {
         delete[] valuesArray;

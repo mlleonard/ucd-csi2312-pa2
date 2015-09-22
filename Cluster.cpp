@@ -5,7 +5,12 @@
 #include "Cluster.h"
 
 namespace Clustering {
-//Cluster::Cluster(const Cluster &cluster)
+Cluster::Cluster(const Cluster &cluster)
+{
+    head = cluster.head;
+    currentNode = cluster.currentNode;
+    size = cluster.size;
+}
     void Cluster::add(const pointPtr sourcePoint) {
 
         bool moreToSearch = true;
@@ -297,4 +302,68 @@ namespace Clustering {
 
         return *clusterPtr;
     }
+
+    const Cluster operator-(const Cluster &lhs, const Cluster &rhs) {
+        bool checkinglhs = true;
+        bool checkingrhs = true;
+        nodePtr rhsPtr;
+        rhsPtr = rhs.head;
+
+        nodePtr lhsPtr;
+        lhsPtr = lhs.head;
+        Cluster *clusterPtr;
+        clusterPtr = new Cluster;
+
+
+        while (checkinglhs) {
+
+            while (checkingrhs) {
+                if (((rhsPtr->next)->value) == ((lhsPtr->next)->value)) {
+                    lhsPtr = (lhsPtr->next);
+                    checkingrhs = true;
+                }
+                else if (((lhsPtr->next) = nullptr)) {
+                    checkingrhs = false;
+                }
+                else {
+                    clusterPtr->erase((rhs.currentNode)->value);
+                    checkingrhs = false;
+                }
+
+            }
+
+            if ((rhsPtr->next) == nullptr) {
+                checkinglhs = false;
+            }
+            rhsPtr = (rhsPtr->next);
+        }
+
+        return *clusterPtr;
+    }
+
+
+    const Cluster Clustering::operator+( const Cluster &lhs, const pointPtr &rhs)
+    {
+        Cluster *clusterPointer;
+        clusterPointer = new Cluster();
+
+        (*clusterPointer)=lhs;
+
+        clusterPointer->add(rhs);
+
+        return Cluster();
+    }
+
+    const Cluster Clustering::operator-( const Cluster &lhs, const pointPtr &rhs)
+    {
+        Cluster *clusterPointer;
+        clusterPointer = new Cluster();
+
+        (*clusterPointer)=lhs;
+
+        clusterPointer->erase(rhs);
+
+        return Cluster();
+    }
 };
+
