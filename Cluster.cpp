@@ -12,64 +12,62 @@ Cluster::Cluster(const Cluster &cluster)
     size = cluster.size;
 }
     void Cluster::add(const pointPtr sourcePoint) {
-
-        bool moreToSearch = true;
         node *newNode;
-        node *tempNode;
         currentNode = head;
 
         if (size == 0) {
             newNode = new node;
             (newNode->value) = sourcePoint;
 
-            (newNode->next) = nullptr;
-            (newNode->before) = nullptr;
+            (newNode->next) = head;
             head = newNode;
-            moreToSearch = false;
             size++;
+            currentNode = nullptr;
         }
-        while (moreToSearch == true) {
 
-            if (size > 0) {
-                if ((((currentNode->next)->value) > sourcePoint)) {
-                    newNode = new node;     //create new node
-                    tempNode = new node;    //create temporary node
+        if ((currentNode->value) > sourcePoint)
+        {
+            newNode = new node;
+            (newNode->value) = sourcePoint;
+            (newNode->next) = head;
+            head = newNode;
 
-                    (newNode->value) = sourcePoint;   //set value in newNode to sourcePoint
-                    (tempNode->next) = (currentNode->next);     //set tempNode Ptr to nex node
-                    (currentNode->next) = newNode;            //set currentNodes next to newNode
-                    (newNode->before) = currentNode;          //set newNodes previous to currentNode
-                    (newNode->next) = (tempNode->next);         //set newNodes next
-                    ((newNode->next)->before) = newNode;
+            size++;
+            currentNode = nullptr;
+        }
+        for(currentNode = head; currentNode!= nullptr; currentNode = currentNode->next)
+        {
+            if (((currentNode->next)->value) > sourcePoint)
+            {
+                newNode = new node;     //create new node
 
-                    delete[] tempNode;
+                (newNode->value) = sourcePoint;   //set value in newNode to sourcePoint
+                (newNode->next) = (currentNode->next);     //set tempNode Ptr to nex node
+                (currentNode->next) = newNode;
 
-                    moreToSearch = ((currentNode->next) != nullptr);
-                    size++;
-                }
+                size++;
 
-                else if ((((currentNode->next)->value) < sourcePoint)) {
-                    currentNode = (currentNode->next);
-                    moreToSearch = true;
-                }
-
-                else {
-                    newNode = new node;     //create new node
-                    (newNode->value) = sourcePoint;   //set value in newNode to sourcePoint
-                    (newNode->next) = nullptr;
-                    (currentNode->next) = newNode;
-                    (newNode->before) = currentNode;
-
-                    size++;
-
-                    moreToSearch = false;
-                }
-
+                return;
             }
 
+            else if(((currentNode->next)->value) == nullptr)
+            {
+                newNode =  new node;
+
+                (newNode->value) = sourcePoint;
+                (newNode->next) = nullptr;
+                (currentNode->next) = newNode;
+
+                size++;
+
+                return;
+            }
         }
 
+
     }
+
+
 
     void Cluster::erase(const pointPtr sourcePoint) {
         bool searching = true;
