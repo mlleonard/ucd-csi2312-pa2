@@ -3,7 +3,6 @@
 //
 
 #include "Cluster.h"
-//commenting thingssssss
 namespace Clustering {
 Cluster::Cluster(const Cluster &cluster)
 {
@@ -70,33 +69,27 @@ Cluster::Cluster(const Cluster &cluster)
 
 
     void Cluster::erase(const pointPtr sourcePoint) {
-        bool searching = true;
-        currentNode = head;
+        node* deleteNode;
 
-        while (searching == true) {
-            if ((currentNode->value) == sourcePoint) {
-                if (((currentNode->before) = nullptr)) {
-                    head = (currentNode->next);
-                    ((currentNode->next)->before) = nullptr;
-                    delete[] currentNode;
-                    size--;
+        for(currentNode = head; currentNode!=nullptr; currentNode = currentNode->next)
+        {
+            if( ((currentNode->next)->value) == sourcePoint)
+            {
+                if(currentNode == head)
+                {
+                    deleteNode = currentNode->next;
+                    head = ((currentNode->next)->next);
+                    delete deleteNode;
                 }
-                else if (((currentNode->next) = nullptr)) {
-                    ((currentNode->before)->next) = nullptr;
-                    delete[] currentNode;
-                    size--;
+                else
+                {
+                    deleteNode = currentNode->next;
+                    (currentNode->next) = ((currentNode->next)->next);
+                    delete deleteNode;
                 }
-                else {
-                    ((currentNode->before)->next) = (currentNode->next);
-                    ((currentNode->next)->before) = (currentNode->before);
-                    delete[] currentNode;
-                    size--;
-                }
-            }
-            else {
-                currentNode = (currentNode->next);
             }
         }
+
     }
 
     std::ostream &operator<<(std::ostream &os, Cluster &cluster) {
@@ -363,5 +356,12 @@ Cluster::Cluster(const Cluster &cluster)
 
         return Cluster();
     }
+
+    Cluster::~Cluster()
+    {
+
+
+    }
 };
+
 

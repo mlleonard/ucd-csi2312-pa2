@@ -16,7 +16,7 @@ namespace Clustering {
         value_type *valuesArray;
 
     public:
-        //default constructot
+        //default constructor
         Point();
 
         //constructor

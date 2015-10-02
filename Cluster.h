@@ -13,9 +13,10 @@ typedef struct node* nodePtr;
 
 
     struct node {
-        nodePtr before;
+        //nodePtr before;
         nodePtr next;
         pointPtr value;
+        //node(pointPtr pt,nodePtr n) : value(pt), next(n) {}
     };
 
 
@@ -30,6 +31,7 @@ typedef struct node* nodePtr;
         //Copy Constructor
         Cluster(const Cluster&);
         void add(const pointPtr sourcePoint);
+        ~Cluster();
 
         void erase(const pointPtr sourcePoint);
 
