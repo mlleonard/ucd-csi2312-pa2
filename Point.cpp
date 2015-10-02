@@ -3,7 +3,6 @@
 //
 
 #include "Point.h"
-#include <iostream>
 #include <cmath>
 
 using namespace std;
@@ -61,9 +60,9 @@ namespace Clustering {
 
     void Point::insert(const value_type entry) {
         if (dim == DEFAULT_DIM) {
+
             resize(dim + 1);
         }
-
         valuesArray[dim] = entry;
         ++dim;
     }

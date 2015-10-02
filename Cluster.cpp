@@ -4,41 +4,43 @@
 
 #include "Cluster.h"
 namespace Clustering {
-Cluster::Cluster(const Cluster &cluster)
-{
-    head = cluster.head;
-    currentNode = cluster.currentNode;
-    size = cluster.size;
-}
+
+    Cluster::Cluster(const Cluster &cluster)
+    {
+        head = cluster.head;
+        currentNode = cluster.currentNode;
+        size = cluster.size;
+    }
+
     void Cluster::add(const pointPtr sourcePoint) {
-        node *newNode;
+        nodePtr newNode;
+        newNode = new Lnode;
         currentNode = head;
-
-        if (size == 0) {
-            newNode = new node;
-            (newNode->value) = sourcePoint;
-
-            (newNode->next) = head;
-            head = newNode;
-            size++;
-            currentNode = nullptr;
-        }
-
-        if ((currentNode->value) > sourcePoint)
+        if (size == 0)
         {
-            newNode = new node;
             (newNode->value) = sourcePoint;
-            (newNode->next) = head;
-            head = newNode;
 
+            (newNode->next) = nullptr;
+            head = newNode;
             size++;
-            currentNode = nullptr;
+            return;
         }
+
+
         for(currentNode = head; currentNode!= nullptr; currentNode = currentNode->next)
         {
+            if (((currentNode->value) > sourcePoint))
+            {
+                (newNode->value) = sourcePoint;
+                (newNode->next) = currentNode;
+                head = newNode;
+
+                size++;
+                return;
+            }
+
             if (((currentNode->next)->value) > sourcePoint)
             {
-                newNode = new node;     //create new node
 
                 (newNode->value) = sourcePoint;   //set value in newNode to sourcePoint
                 (newNode->next) = (currentNode->next);     //set tempNode Ptr to nex node
@@ -51,7 +53,6 @@ Cluster::Cluster(const Cluster &cluster)
 
             else if(((currentNode->next)->value) == nullptr)
             {
-                newNode =  new node;
 
                 (newNode->value) = sourcePoint;
                 (newNode->next) = nullptr;
@@ -69,7 +70,7 @@ Cluster::Cluster(const Cluster &cluster)
 
 
     void Cluster::erase(const pointPtr sourcePoint) {
-        node* deleteNode;
+        Lnode* deleteNode;
 
         for(currentNode = head; currentNode!=nullptr; currentNode = currentNode->next)
         {

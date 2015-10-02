@@ -1,6 +1,6 @@
 #include <iostream>
-#include "point.h"
-#include "cluster.h"
+#include "Point.h"
+#include "Cluster.h"
 
 using namespace std;
 using namespace Clustering;
@@ -68,6 +68,7 @@ int main() {
         a.insert(value);
     }
 
+
     pointPtr myPointa;
     myPointa = &a;
 
@@ -101,11 +102,6 @@ int main() {
 
 
     cout << (cluster1 != cluster2);
-
-
-
-
-
 
 
 

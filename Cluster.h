@@ -9,14 +9,14 @@
 
 namespace Clustering{
 typedef Clustering::Point* pointPtr;
-typedef struct node* nodePtr;
+typedef struct Lnode* nodePtr;
 
 
-    struct node {
+    struct Lnode {
         //nodePtr before;
         nodePtr next;
         pointPtr value;
-        //node(pointPtr pt,nodePtr n) : value(pt), next(n) {}
+        //node(pointPtr pt,nodePtr n) : value(pt), (n) {}
     };
 
 

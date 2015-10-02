@@ -2,8 +2,8 @@
 // Created by Madeline Leonard on 9/20/15.
 //
 
-#ifndef REDO_POINT_H
-#define REDO_POINT_H
+#ifndef POINT_H
+#define POINT_H
 #include <iostream>
 
 namespace Clustering {
@@ -90,4 +90,4 @@ namespace Clustering {
     };
 
 };
-#endif //REDO_POINT_H
+#endif
