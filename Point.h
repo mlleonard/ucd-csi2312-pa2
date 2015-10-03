@@ -31,7 +31,7 @@ namespace Clustering {
         ~Point();
 
         //member functions for dArray
-        size_type getDEFAULT_DIM() const { return DEFAULT_DIM; }
+        //size_type getDEFAULT_DIM() const { return DEFAULT_DIM; }
 
         size_type getDim() const { return dim; }
 
@@ -41,9 +41,9 @@ namespace Clustering {
 
         void resize(int);
 
-        bool isEmpty() const { return dim == 0; }
+        //bool isEmpty() const { return dim == 0; }
 
-        bool isFull() const { return dim == DEFAULT_DIM; }
+        //bool isFull() const { return dim == DEFAULT_DIM; }
 
         //member functions for Point class
 

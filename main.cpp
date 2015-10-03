@@ -99,9 +99,33 @@ int main() {
     cluster2.add(myPointb);
 
 
+    //Tests for Point class
+
+    //*=
+
+    a*2;
 
 
-    cout << (cluster1 != cluster2);
+
+    for (int i = 0 ; i<a.getDim(); i++)
+    {
+       cout << a.getValue(i);
+    }
+    cout << endl << "123";
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //cout << (cluster1 != cluster2);
 
 
 

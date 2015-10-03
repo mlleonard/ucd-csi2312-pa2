@@ -93,10 +93,10 @@ namespace Clustering {
 
     double Point::distanceTo(Point &other) {
         value_type sum = 0;
-        value_type distance;
+        value_type distance = 0;
 
         for (int i = 0; i < dim; i++) {
-            sum += pow((other.getValue(i) + valuesArray[i]), 2);
+            sum += pow((other.getValue(i) - valuesArray[i]), 2);
         }
 
         distance = sqrt(sum);
