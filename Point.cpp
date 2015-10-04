@@ -124,7 +124,7 @@ namespace Clustering {
     }
 
 
-    const Point Point::operator*(double digit) {
+    const Point Point::operator*(double digit) const {
         Point *productPoint;
         productPoint = new Point;
 
@@ -141,7 +141,7 @@ namespace Clustering {
         productPoint = new Point;
 
         for (int i = 0; i < dim; i++) {
-            productPoint->insert(this->getValue(i) * digit);
+            productPoint->insert(this->getValue(i) / digit);
         }
 
         return *productPoint;
@@ -151,7 +151,7 @@ namespace Clustering {
     Point &operator+=(Point &point1, const Point &point2) {
 
         for (int i = 0; i < point1.getDim(); i++) {
-            point1.valuesArray[i] = (point1.getValue(i) + point2.getValue(i));
+            point1.valuesArray[i] = ((point1.getValue(i)) + (point2.getValue(i)));
         }
 
         return point1;
@@ -181,41 +181,42 @@ namespace Clustering {
         Point *sumPoint;
         sumPoint = new Point;
 
+        sumPoint->resize(point1.getDim());
+
         for (int i = 0; i < point1.getDim(); i++) {
-            sumPoint->insert(point1.getValue(i) - point2.getValue(i));
+            sumPoint->insert((point1.getValue(i)) + (point2.getValue(i)));
         }
+
 
         return *sumPoint;
     }
 
     bool operator==(const Point &point1, const Point &point2) {
-        bool checking = true;
 
-        for (int i = 0; i < point1.getDim(); i++) {
-            if (point1.getValue(i) == point2.getValue(i)) {
-                checking = true;
-            }
-            else {
-                checking = false;
+        for (int i = 0; i<point1.getDim(); i++)
+        {
+            if(point1.getValue(i) != point2.getValue(i))
+            {
+                return false;
             }
         }
-
-        return checking;
+        return true;
     }
 
     bool operator!=(const Point &point1, const Point &point2) {
-        bool checking = true;
 
-        for (int i = 0; i < point1.getDim(); i++) {
-            if (point1.getValue(i) != point2.getValue(i)) {
-                checking = true;
-            }
-            else {
-                checking = false;
+        if(point1.getDim() != point2.getDim())
+        {
+            return true;
+        }
+        for (int i = 0; i < point1.getDim(); i++)
+        {
+            if (point1.getValue(i) != point2.getValue(i))
+            {
+                return true;
             }
         }
-
-        return checking;
+        return false;
     }
 
     bool operator<(const Point &point1, const Point &point2) {
@@ -301,6 +302,17 @@ namespace Clustering {
         return is;
     }
 
+    Point &Point::operator=(const Point &point)
+    {
+        for( int i = 0; i<point.getDim(); i++)
+        {
+            this->valuesArray[i] = point.getValue(i);
+        }
+        this->dim = point.getDim();
+
+
+        return *this;
+    }
 };
 
 

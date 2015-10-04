@@ -101,17 +101,11 @@ int main() {
 
     //Tests for Point class
 
-    //*=
-
-    a*2;
 
 
+   cout << (a!=b);
 
-    for (int i = 0 ; i<a.getDim(); i++)
-    {
-       cout << a.getValue(i);
-    }
-    cout << endl << "123";
+
 
 
 

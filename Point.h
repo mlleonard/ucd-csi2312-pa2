@@ -27,6 +27,9 @@ namespace Clustering {
         //copy constructor;
         Point(const Point &);
 
+        //Overloaded operator=
+        Point &operator=(const Point&);
+
         //destructor
         ~Point();
 
@@ -53,7 +56,7 @@ namespace Clustering {
 
         Point &operator/=(double);
 
-        const Point operator*(double);
+        const Point operator*(double) const;
 
         const Point operator/(double);
 
