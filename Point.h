@@ -40,7 +40,7 @@ namespace Clustering {
 
         value_type getValue(size_type i) const { return valuesArray[i]; }
 
-        void insert(const value_type entry);
+        void setValue(int dimEntry, double valueEntry );
 
         void resize(int);
 

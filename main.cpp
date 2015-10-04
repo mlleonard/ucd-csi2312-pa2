@@ -65,7 +65,7 @@ int main() {
     for ( int i = 0; i < userDim; i++)
     {
         cin >> value;
-        a.insert(value);
+        a.setValue(i, value);
     }
 
 
@@ -88,7 +88,7 @@ int main() {
     for ( int i = 0; i < userDim; i++)
     {
         cin >> value;
-        b.insert(value);
+        b.setValue(i, value);
     }
 
     pointPtr myPointb;
@@ -103,8 +103,7 @@ int main() {
 
 
 
-   cout << (a!=b);
-
+   cout << a;
 
 
 

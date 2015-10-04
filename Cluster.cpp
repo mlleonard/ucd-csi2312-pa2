@@ -120,7 +120,7 @@ namespace Clustering {
         for (int i = 0; i < dim; i++) {
             std::cout << "Please enter the values of that point" << std::endl;
             std::cin >> value;
-            myPoint->insert(value);
+            myPoint->setValue(i,value);
         }
 
 

@@ -58,12 +58,12 @@ namespace Clustering {
     return valuesArray[i];
 }*/
 
-    void Point::insert(const value_type entry) {
+    void Point::setValue(int dimEntry, double valueEntry ) {
         if (dim == DEFAULT_DIM) {
 
             resize(dim + 1);
         }
-        valuesArray[dim] = entry;
+        valuesArray[dimEntry] = valueEntry;
         ++dim;
     }
 
@@ -129,7 +129,7 @@ namespace Clustering {
         productPoint = new Point;
 
         for (int i = 0; i < dim; i++) {
-            productPoint->insert(this->getValue(i) * digit);
+            productPoint->setValue(dim, this->getValue(i) * digit);
         }
 
 
@@ -141,7 +141,7 @@ namespace Clustering {
         productPoint = new Point;
 
         for (int i = 0; i < dim; i++) {
-            productPoint->insert(this->getValue(i) / digit);
+            productPoint->setValue(dim, this->getValue(i) / digit);
         }
 
         return *productPoint;
@@ -171,7 +171,7 @@ namespace Clustering {
         differencePoint = new Point;
 
         for (int i = 0; i < point1.getDim(); i++) {
-            differencePoint->insert(point1.getValue(i) - point2.getValue(i));
+            differencePoint->setValue((point1.getDim()), (point1.getValue(i) - point2.getValue(i)));
         }
 
         return *differencePoint;
@@ -184,7 +184,7 @@ namespace Clustering {
         sumPoint->resize(point1.getDim());
 
         for (int i = 0; i < point1.getDim(); i++) {
-            sumPoint->insert((point1.getValue(i)) + (point2.getValue(i)));
+            sumPoint->setValue((point1.getDim()), ((point1.getValue(i)) + (point2.getValue(i))));
         }
 
 
@@ -220,62 +220,51 @@ namespace Clustering {
     }
 
     bool operator<(const Point &point1, const Point &point2) {
-        bool checking = true;
 
-        for (int i = 0; i < point1.getDim(); i++) {
-            if (point1.getValue(i) < point2.getValue(i)) {
-                checking = true;
-            }
-            else {
-                checking = false;
+        for (int i = 0; i < point1.getDim(); i++)
+        {
+            if (point1.getValue(i) >= point2.getValue(i)) {
+                return false;
             }
         }
 
-        return checking;
+        return true;
     }
 
-    bool operator>(const Point &point1, const Point &point2) {
-        bool checking = true;
-
+    bool operator>(const Point &point1, const Point &point2)
+    {
         for (int i = 0; i < point1.getDim(); i++) {
-            if (point1.getValue(i) > point2.getValue(i)) {
-                checking = true;
+
+            if (point1.getValue(i) <= point2.getValue(i))
+            {
+                return false;
             }
-            else {
-                checking = false;
-            }
+
         }
-        return checking;
+        return true;
     }
 
     bool operator<=(const Point &point1, const Point &point2) {
-        bool checking = true;
+
 
         for (int i = 0; i < point1.getDim(); i++) {
-            if (point1.getValue(i) <= point2.getValue(i)) {
-                checking = true;
-            }
-            else {
-                checking = false;
+            if (point1.getValue(i) > point2.getValue(i)) {
+                return false;
             }
         }
 
-        return checking;
+        return true;
     }
 
     bool operator>=(const Point &point1, const Point &point2) {
-        bool checking = true;
 
         for (int i = 0; i <= point1.getDim(); i++) {
-            if (point1.getValue(i) >= point2.getValue(i)) {
-                checking = true;
-            }
-            else {
-                checking = false;
+            if (point1.getValue(i) < point2.getValue(i)) {
+                return false;
             }
         }
 
-        return checking;
+        return true;
     }
 
     std::ostream &operator<<(ostream &os, const Point &point) {
@@ -288,6 +277,7 @@ namespace Clustering {
 
     std::istream &operator>>(istream &is, Point &point) {
 
+
         int numPoints;
         double values = 0;
 
@@ -297,7 +287,7 @@ namespace Clustering {
         for (int i = 0; i < numPoints; i++) {
             cout << "Please insert values";
 
-            point.insert(values);
+            point.setValue(i, values);
         }
         return is;
     }
