@@ -33,7 +33,7 @@ typedef struct Lnode* nodePtr;
         void add(const pointPtr sourcePoint);
         ~Cluster();
 
-        void erase(const pointPtr sourcePoint);
+        void remove(const pointPtr sourcePoint);
 
         friend std::ostream &operator<<(std::ostream &os, Cluster &cluster);
 

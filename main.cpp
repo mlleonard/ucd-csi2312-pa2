@@ -99,15 +99,34 @@ int main() {
     cluster2.add(myPointb);
 
 
-    //Tests for Point class
+    /*cout << "Please enter the dimensions of the third point" << endl;
+    cin >> userDim;
+
+    Point c;
+
+    c.resize(userDim);
+
+    cout << "Please enter the values of those dimensions" << endl;
+
+    for ( int i = 0; i < userDim; i++)
+    {
+        cin >> value;
+        c.setValue( i, value);
+    }
+
+    pointPtr myPointc;
+    myPointc = &c;
 
 
+    cluster1.add(myPointc);
+     */
 
-   cout << a;
+    cout << cluster1;
+
+    cout << cluster2;
 
 
-
-
+    cout << (cluster1==cluster2);
 
 
 

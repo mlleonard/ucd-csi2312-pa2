@@ -13,34 +13,49 @@ namespace Clustering {
     }
 
     void Cluster::add(const pointPtr sourcePoint) {
+
         nodePtr newNode;
         newNode = new Lnode;
         currentNode = head;
-        if (size == 0)
-        {
+        if (size == 0) {
             (newNode->value) = sourcePoint;
 
             (newNode->next) = nullptr;
             head = newNode;
             size++;
             return;
+
         }
 
 
-        for(currentNode = head; currentNode!= nullptr; currentNode = currentNode->next)
-        {
-            if (((currentNode->value) > sourcePoint))
-            {
-                (newNode->value) = sourcePoint;
-                (newNode->next) = currentNode;
-                head = newNode;
-
+        for (currentNode = head; currentNode != nullptr; currentNode = currentNode->next) {
+            if (size == 1) {
+                if ((*(currentNode->value) > (*sourcePoint))) {
+                    (newNode->value) = sourcePoint;
+                    (newNode->next) = currentNode;
+                    head = newNode;
+                }
+                else {
+                    (newNode->value) = sourcePoint;
+                    (newNode->next) = nullptr;
+                    (currentNode->next) = newNode;
+                }
                 size++;
                 return;
             }
 
-            if (((currentNode->next)->value) > sourcePoint)
-            {
+            if ((currentNode->next) == nullptr) {
+
+                (newNode->value) = sourcePoint;
+                (newNode->next) = nullptr;
+                (currentNode->next) = newNode;
+
+                size++;
+
+                return;
+            }
+
+            else if (*((currentNode->next)->value) > (*sourcePoint)) {
 
                 (newNode->value) = sourcePoint;   //set value in newNode to sourcePoint
                 (newNode->next) = (currentNode->next);     //set tempNode Ptr to nex node
@@ -51,44 +66,50 @@ namespace Clustering {
                 return;
             }
 
-            else if(((currentNode->next)->value) == nullptr)
-            {
-
-                (newNode->value) = sourcePoint;
-                (newNode->next) = nullptr;
-                (currentNode->next) = newNode;
-
-                size++;
-
-                return;
-            }
         }
-
 
     }
 
 
 
-    void Cluster::erase(const pointPtr sourcePoint) {
-        Lnode* deleteNode;
+    void Cluster::remove(const pointPtr sourcePoint) {
+        nodePtr deleteNode;
+        deleteNode = new Lnode;
+
 
         for(currentNode = head; currentNode!=nullptr; currentNode = currentNode->next)
         {
-            if( ((currentNode->next)->value) == sourcePoint)
+            if ( *(head->value) == *sourcePoint)
+            {
+                deleteNode->next = head;
+                head = head->next;
+                size--;
+
+                delete deleteNode;
+
+            }
+            else if( currentNode->next == nullptr)
+            {
+                return;
+            }
+            else if( (*(currentNode->next)->value) == *sourcePoint )
             {
                 if(currentNode == head)
                 {
                     deleteNode = currentNode->next;
                     head = ((currentNode->next)->next);
                     delete deleteNode;
+                    size--;
                 }
                 else
                 {
                     deleteNode = currentNode->next;
                     (currentNode->next) = ((currentNode->next)->next);
                     delete deleteNode;
+                    size--;
                 }
             }
+
         }
 
     }
@@ -242,7 +263,7 @@ namespace Clustering {
                     checkingrhs = false;
                 }
                 else {
-                    this->erase((rhs.currentNode)->value);
+                    this->remove((rhs.currentNode)->value);
                     checkingrhs = false;
                 }
 
@@ -318,7 +339,7 @@ namespace Clustering {
                     checkingrhs = false;
                 }
                 else {
-                    clusterPtr->erase((rhs.currentNode)->value);
+                    clusterPtr->remove((rhs.currentNode)->value);
                     checkingrhs = false;
                 }
 
@@ -353,7 +374,7 @@ namespace Clustering {
 
         (*clusterPointer)=lhs;
 
-        clusterPointer->erase(rhs);
+        clusterPointer->remove(rhs);
 
         return Cluster();
     }
