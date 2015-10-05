@@ -121,23 +121,20 @@ int main() {
     cluster1.add(myPointc);
      */
 
-    cout << cluster1;
+    //cout << cluster1;
 
-    cout << cluster2;
+    //cout << cluster2;
+    cluster1.add(myPointb);
 
+    Cluster cluster3;
+    cluster3 = (cluster1 - cluster2);
 
-    cout << (cluster1==cluster2);
-
-
-
-
-
+    cout << cluster3;
 
 
 
 
 
-    //cout << (cluster1 != cluster2);
 
 
 

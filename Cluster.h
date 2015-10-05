@@ -30,9 +30,10 @@ typedef struct Lnode* nodePtr;
 
         //Copy Constructor
         Cluster(const Cluster&);
-        void add(const pointPtr sourcePoint);
+        Cluster &operator=(const Cluster&);
         ~Cluster();
 
+        void add(const pointPtr sourcePoint);
         void remove(const pointPtr sourcePoint);
 
         friend std::ostream &operator<<(std::ostream &os, Cluster &cluster);

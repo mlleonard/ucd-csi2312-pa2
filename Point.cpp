@@ -49,6 +49,7 @@ namespace Clustering {
 
     Point::~Point() {
         delete[] valuesArray;
+        delete this;
     }
 
 //***********Dynamic Member variables**************

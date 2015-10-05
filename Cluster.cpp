@@ -11,6 +11,16 @@ namespace Clustering {
         currentNode = cluster.currentNode;
         size = cluster.size;
     }
+    Cluster& Cluster::operator=(const Cluster& source)
+    {
+        nodePtr tempNode;
+
+        for(tempNode = source.head; tempNode!= nullptr; tempNode = tempNode->next)
+        {
+          this->add(tempNode->value);
+        }
+
+    }
 
     void Cluster::add(const pointPtr sourcePoint) {
 
@@ -210,34 +220,19 @@ namespace Clustering {
     }
 
     Cluster &Cluster::operator+=(const Cluster &rhs) {
-        bool checkinglhs = true;
-        bool checkingrhs = true;
-        currentNode = head;
         nodePtr rhsPtr;
-        rhsPtr = rhs.head;
 
+        for (currentNode = head; currentNode!=nullptr; currentNode = currentNode->next)
+        {
 
-        while (checkinglhs) {
-
-            while (checkingrhs) {
-                if (((rhsPtr->next)->value) == ((currentNode->next)->value)) {
-                    currentNode = (currentNode->next);
-                    checkingrhs = true;
-                }
-                else if (((currentNode->next) = nullptr)) {
-                    checkingrhs = false;
-                }
-                else {
-                    this->add((rhs.currentNode)->value);
-                    checkingrhs = false;
+            for(rhsPtr = rhs.head; rhsPtr != nullptr; rhsPtr = rhsPtr->next)
+            {
+                if(currentNode->value != rhsPtr->value)
+                {
+                    this->add(rhsPtr->value);
                 }
 
             }
-
-            if ((rhsPtr->next) == nullptr) {
-                checkinglhs = false;
-            }
-            rhsPtr = (rhsPtr->next);
         }
 
         return *this;
@@ -245,117 +240,78 @@ namespace Clustering {
 
 
     Cluster &Cluster::operator-=(const Cluster &rhs) {
-        bool checkinglhs = true;
-        bool checkingrhs = true;
-        currentNode = head;
         nodePtr rhsPtr;
-        rhsPtr = rhs.head;
 
 
-        while (checkinglhs) {
+        for (currentNode = head; currentNode!=nullptr; currentNode = currentNode->next)
+        {
 
-            while (checkingrhs) {
-                if (((rhsPtr->next)->value) == ((currentNode->next)->value)) {
-                    currentNode = (currentNode->next);
-                    checkingrhs = true;
-                }
-                else if (((currentNode->next) = nullptr)) {
-                    checkingrhs = false;
-                }
-                else {
-                    this->remove((rhs.currentNode)->value);
-                    checkingrhs = false;
+            for(rhsPtr = rhs.head; rhsPtr != nullptr; rhsPtr = rhsPtr->next)
+            {
+                if(currentNode->value == rhsPtr->value)
+                {
+                    this->remove(rhsPtr->value);
                 }
 
             }
-
-            if ((rhsPtr->next) == nullptr) {
-                checkinglhs = false;
-            }
-            rhsPtr = (rhsPtr->next);
         }
+
+
 
         return *this;
     }
 
     const Cluster operator+(const Cluster &lhs, const Cluster &rhs) {
-        bool checkinglhs = true;
-        bool checkingrhs = true;
-        nodePtr rhsPtr;
-        rhsPtr = rhs.head;
 
+        nodePtr rhsPtr;
         nodePtr lhsPtr;
-        lhsPtr = lhs.head;
         Cluster *clusterPtr;
         clusterPtr = new Cluster;
 
+        *clusterPtr = lhs;
 
-        while (checkinglhs) {
 
-            while (checkingrhs) {
-                if (((rhsPtr->next)->value) == ((lhsPtr->next)->value)) {
-                    lhsPtr = (lhsPtr->next);
-                    checkingrhs = true;
-                }
-                else if (((lhsPtr->next) = nullptr)) {
-                    checkingrhs = false;
-                }
-                else {
-                    clusterPtr->add((rhs.currentNode)->value);
-                    checkingrhs = false;
-                }
+        for(lhsPtr = lhs.head; lhsPtr != nullptr; lhsPtr = lhsPtr->next )
+        {
+            for(rhsPtr = rhs.head; rhsPtr != nullptr; rhsPtr = rhsPtr->next)
+            {
+
+                clusterPtr->add(rhsPtr->value);
 
             }
-
-            if ((rhsPtr->next) == nullptr) {
-                checkinglhs = false;
-            }
-            rhsPtr = (rhsPtr->next);
         }
+
 
         return *clusterPtr;
     }
 
     const Cluster operator-(const Cluster &lhs, const Cluster &rhs) {
-        bool checkinglhs = true;
-        bool checkingrhs = true;
         nodePtr rhsPtr;
-        rhsPtr = rhs.head;
 
         nodePtr lhsPtr;
-        lhsPtr = lhs.head;
         Cluster *clusterPtr;
         clusterPtr = new Cluster;
 
+        *clusterPtr = lhs;
 
-        while (checkinglhs) {
 
-            while (checkingrhs) {
-                if (((rhsPtr->next)->value) == ((lhsPtr->next)->value)) {
-                    lhsPtr = (lhsPtr->next);
-                    checkingrhs = true;
+        for(lhsPtr = lhs.head; lhsPtr != nullptr; lhsPtr = lhsPtr->next )
+        {
+            for(rhsPtr = rhs.head; rhsPtr != nullptr; rhsPtr = rhsPtr->next)
+            {
+                if(lhsPtr->value == rhsPtr->value)
+                {
+                    clusterPtr->remove(rhsPtr->value);
                 }
-                else if (((lhsPtr->next) = nullptr)) {
-                    checkingrhs = false;
-                }
-                else {
-                    clusterPtr->remove((rhs.currentNode)->value);
-                    checkingrhs = false;
-                }
-
             }
-
-            if ((rhsPtr->next) == nullptr) {
-                checkinglhs = false;
-            }
-            rhsPtr = (rhsPtr->next);
         }
+
 
         return *clusterPtr;
     }
 
 
-    const Cluster Clustering::operator+( const Cluster &lhs, const pointPtr &rhs)
+    const Cluster operator+( const Cluster &lhs, const pointPtr &rhs)
     {
         Cluster *clusterPointer;
         clusterPointer = new Cluster();
@@ -364,10 +320,10 @@ namespace Clustering {
 
         clusterPointer->add(rhs);
 
-        return Cluster();
+        return *clusterPointer;
     }
 
-    const Cluster Clustering::operator-( const Cluster &lhs, const pointPtr &rhs)
+    const Cluster operator-( const Cluster &lhs, const pointPtr &rhs)
     {
         Cluster *clusterPointer;
         clusterPointer = new Cluster();
@@ -376,12 +332,13 @@ namespace Clustering {
 
         clusterPointer->remove(rhs);
 
-        return Cluster();
+        return *clusterPointer;
     }
 
     Cluster::~Cluster()
     {
 
+       // *(this->currentNode->value).~Point();
 
     }
 };
