@@ -48,8 +48,9 @@ namespace Clustering {
 // ************Destructor*******************
 
     Point::~Point() {
+        cout << "Something Awesome" << endl;
         delete[] valuesArray;
-        delete this;
+        //delete this;
     }
 
 //***********Dynamic Member variables**************

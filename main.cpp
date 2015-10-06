@@ -125,17 +125,13 @@ int main() {
 
     //cout << cluster2;
     cluster1.add(myPointb);
+/*
+    Cluster *deleteCluster;
+    deleteCluster = new Cluster;
 
-    Cluster cluster3;
-    cluster3 = (cluster1 - cluster2);
+    delete deleteCluster;
 
-    cout << cluster3;
-
-
-
-
-
-
+*/
 
 
 

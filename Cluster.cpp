@@ -338,7 +338,16 @@ namespace Clustering {
     Cluster::~Cluster()
     {
 
-       // *(this->currentNode->value).~Point();
+        for (currentNode = head; currentNode!= nullptr; currentNode = currentNode->next)
+        {
+            head=(currentNode->next);
+            delete currentNode;
+        }
+
+        std::cout << "in here\n";
+
+        //delete this;
+        return;
 
     }
 };
