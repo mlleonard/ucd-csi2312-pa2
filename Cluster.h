@@ -9,20 +9,20 @@
 
 namespace Clustering{
 typedef Clustering::Point* pointPtr;
-typedef struct Lnode* nodePtr;
+typedef struct Lnode* LnodePtr;
 
 
     struct Lnode {
         //nodePtr before;
-        nodePtr next;
+        LnodePtr next;
         pointPtr value;
         //node(pointPtr pt,nodePtr n) : value(pt), (n) {}
     };
 
 
     class Cluster {
-        nodePtr head;
-        nodePtr currentNode;
+        LnodePtr head;
+        LnodePtr currentNode;
         int size;
     public:
         //Default Constructor

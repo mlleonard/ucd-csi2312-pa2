@@ -13,7 +13,7 @@ namespace Clustering {
     }
     Cluster& Cluster::operator=(const Cluster& source)
     {
-        nodePtr tempNode;
+        LnodePtr tempNode;
 
         for(tempNode = source.head; tempNode!= nullptr; tempNode = tempNode->next)
         {
@@ -24,7 +24,7 @@ namespace Clustering {
 
     void Cluster::add(const pointPtr sourcePoint) {
 
-        nodePtr newNode;
+        LnodePtr newNode;
         newNode = new Lnode;
         currentNode = head;
         if (size == 0) {
@@ -83,7 +83,7 @@ namespace Clustering {
 
 
     void Cluster::remove(const pointPtr sourcePoint) {
-        nodePtr deleteNode;
+        LnodePtr deleteNode;
         deleteNode = new Lnode;
 
 
@@ -164,8 +164,8 @@ namespace Clustering {
     bool operator==(const Cluster &lhs, const Cluster &rhs) {
         bool checking = true;
 
-        nodePtr lhsPtr;
-        nodePtr rhsPtr;
+        LnodePtr lhsPtr;
+        LnodePtr rhsPtr;
 
         lhsPtr = lhs.head;
         rhsPtr = rhs.head;
@@ -193,8 +193,8 @@ namespace Clustering {
     bool operator!=(const Cluster &lhs, const Cluster &rhs) {
         bool checking = true;
 
-        nodePtr lhsPtr;
-        nodePtr rhsPtr;
+        LnodePtr lhsPtr;
+        LnodePtr rhsPtr;
 
         lhsPtr = lhs.head;
         rhsPtr = rhs.head;
@@ -220,7 +220,7 @@ namespace Clustering {
     }
 
     Cluster &Cluster::operator+=(const Cluster &rhs) {
-        nodePtr rhsPtr;
+        LnodePtr rhsPtr;
 
         for (currentNode = head; currentNode!=nullptr; currentNode = currentNode->next)
         {
@@ -240,7 +240,7 @@ namespace Clustering {
 
 
     Cluster &Cluster::operator-=(const Cluster &rhs) {
-        nodePtr rhsPtr;
+        LnodePtr rhsPtr;
 
 
         for (currentNode = head; currentNode!=nullptr; currentNode = currentNode->next)
@@ -263,8 +263,8 @@ namespace Clustering {
 
     const Cluster operator+(const Cluster &lhs, const Cluster &rhs) {
 
-        nodePtr rhsPtr;
-        nodePtr lhsPtr;
+        LnodePtr rhsPtr;
+        LnodePtr lhsPtr;
         Cluster *clusterPtr;
         clusterPtr = new Cluster;
 
@@ -286,9 +286,9 @@ namespace Clustering {
     }
 
     const Cluster operator-(const Cluster &lhs, const Cluster &rhs) {
-        nodePtr rhsPtr;
+        LnodePtr rhsPtr;
 
-        nodePtr lhsPtr;
+        LnodePtr lhsPtr;
         Cluster *clusterPtr;
         clusterPtr = new Cluster;
 
@@ -344,9 +344,7 @@ namespace Clustering {
             delete currentNode;
         }
 
-        std::cout << "in here\n";
 
-        //delete this;
         return;
 
     }

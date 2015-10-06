@@ -48,7 +48,6 @@ namespace Clustering {
 // ************Destructor*******************
 
     Point::~Point() {
-        cout << "Something Awesome" << endl;
         delete[] valuesArray;
         //delete this;
     }
