@@ -1,6 +1,9 @@
 #include <iostream>
 #include "Point.h"
 #include "Cluster.h"
+#include <sstream>
+#include <fstream>
+
 
 using namespace std;
 using namespace Clustering;
@@ -49,82 +52,6 @@ int main() {
     }*/
     //******************Testing two Points****************
 
-    int userDim = 0;
-    double value;
-
-
-    cout << "Please enter the dimensions of the first point" << endl;
-    cin >> userDim;
-
-    Point a;
-
-    a.resize(userDim);
-
-    cout << "Please enter the values of those dimensions" << endl;
-
-    for ( int i = 0; i < userDim; i++)
-    {
-        cin >> value;
-        a.setValue(i, value);
-    }
-
-
-    pointPtr myPointa;
-    myPointa = &a;
-
-    Cluster cluster1;
-
-    cluster1.add(myPointa);
-
-    cout << "Please enter the dimensions of the second point" << endl;
-    cin >> userDim;
-
-    Point b;
-
-    b.resize(userDim);
-
-    cout << "Please enter the values of those dimensions" << endl;
-
-    for ( int i = 0; i < userDim; i++)
-    {
-        cin >> value;
-        b.setValue(i, value);
-    }
-
-    pointPtr myPointb;
-    myPointb = &b;
-
-    Cluster cluster2;
-
-    cluster2.add(myPointb);
-
-
-    /*cout << "Please enter the dimensions of the third point" << endl;
-    cin >> userDim;
-
-    Point c;
-
-    c.resize(userDim);
-
-    cout << "Please enter the values of those dimensions" << endl;
-
-    for ( int i = 0; i < userDim; i++)
-    {
-        cin >> value;
-        c.setValue( i, value);
-    }
-
-    pointPtr myPointc;
-    myPointc = &c;
-
-
-    cluster1.add(myPointc);
-     */
-
-    //cout << cluster1;
-
-    //cout << cluster2;
-    cluster1.add(myPointb);
 /*
     Cluster *deleteCluster;
     deleteCluster = new Cluster;
@@ -132,6 +59,23 @@ int main() {
     delete deleteCluster;
 
 */
+
+    Cluster myCluster;
+
+    Point myPoint;
+    //myPoint
+
+    ifstream inFile("points.txt");
+
+    inFile >> myCluster;
+
+    //cout << myCluster;
+
+    myCluster.computeCentroid();
+
+    cout << (myCluster.getCentroid());
+
+
 
 
 

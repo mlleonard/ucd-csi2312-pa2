@@ -4,6 +4,13 @@
 
 #include "Point.h"
 #include <cmath>
+#include <fstream>
+#include <sstream>
+
+
+using std::stringstream;
+using std::string;
+using std::ifstream;
 
 using namespace std;
 
@@ -269,29 +276,61 @@ namespace Clustering {
     }
 
     std::ostream &operator<<(ostream &os, const Point &point) {
+
+
+        cout << endl;
+
         for (int i = 0; i < point.getDim(); i++) {
-            os << point.getValue(i) << " ";
+
+            int tempVar = point.getValue(i);
+
+
+            if (point.getValue(i) == tempVar)
+            {
+                os << tempVar << ".0" << ",";
+            }
+
+            else
+            {
+                os << point.getValue(i) << ",";
+            }
+
         }
         return os;
     }
 
 
+
     std::istream &operator>>(istream &is, Point &point) {
 
+        string value;
+        double d;
+        int i = 0;
 
-        int numPoints;
-        double values = 0;
+        //Point p;
 
-        cout << "How many points would you like to enter" << endl;
-        cin >> numPoints;
+        while (getline(is, value, ',')) {
+            d = stod(value);
 
-        for (int i = 0; i < numPoints; i++) {
-            cout << "Please insert values";
-
-            point.setValue(i, values);
+            point.setValue(i++, d);
         }
+
+
+       /* for ( int i = 0; i < point.getDim(); i++)
+        {
+            cout << point.getValue(i) << "  ";
+        }*/
+
+
+        cout << endl;
+
         return is;
+
     }
+
+
+
+
 
     Point &Point::operator=(const Point &point)
     {

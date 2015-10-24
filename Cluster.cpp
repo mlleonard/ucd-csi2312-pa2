@@ -3,6 +3,16 @@
 //
 
 #include "Cluster.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+using std::cout;
+using std::endl;
+using std::ifstream;
+using std::string;
+using std::stringstream;
+
 namespace Clustering {
 
     Cluster::Cluster(const Cluster &cluster)
@@ -19,7 +29,6 @@ namespace Clustering {
         {
           this->add(tempNode->value);
         }
-
     }
 
     void Cluster::add(const pointPtr sourcePoint) {
@@ -126,40 +135,63 @@ namespace Clustering {
 
     std::ostream &operator<<(std::ostream &os, Cluster &cluster) {
         cluster.currentNode = cluster.head;
-        for (int i = 0; i < cluster.size; i++) {
+
+
+
+
+        for (cluster.currentNode; cluster.currentNode != nullptr; cluster.currentNode = cluster.currentNode->next)
+        {
+
+            cout << *(cluster.currentNode->value);
+            cout << endl;
+
+        }
+
+
+
+
+
+
+
+
+
+
+        /*for (int i = 0; i < cluster.size; i++) {
+
             for (int j = 0; j < (((cluster.currentNode)->value)->getDim()); j++) {
                 os << (((cluster.currentNode)->value)->getValue(j)) << " ";
             }
             std::cout << std::endl;
             cluster.currentNode = cluster.currentNode->next;
-        }
+        }*/
 
         return os;
     }
 
     std::istream &operator>>(std::istream &is, Cluster &cluster) {
-        int dim;
-        double value = 0;
+        string line;
 
-        std::cout << "How many dimensions does your point have" << std::endl;
-        std::cin >> dim;
 
-        pointPtr myPoint;
-        myPoint = new Point;
-        myPoint->resize(dim);
+        stringstream pointstream;
 
-        for (int i = 0; i < dim; i++) {
-            std::cout << "Please enter the values of that point" << std::endl;
-            std::cin >> value;
-            myPoint->setValue(i,value);
+
+        while (getline(is, line)) {
+
+            Point *tempPoint;
+            tempPoint = new Point;
+
+            stringstream lineStream(line);
+
+            lineStream >> *tempPoint;
+
+            cluster.add(tempPoint);
+
         }
-
-
-        cluster.add(myPoint);
 
 
         return is;
     }
+
 
     bool operator==(const Cluster &lhs, const Cluster &rhs) {
         bool checking = true;
@@ -346,6 +378,66 @@ namespace Clustering {
 
 
         return;
+
+    }
+
+
+    void Cluster::setCentroid(const Point &point)
+    {
+        _centroid = point;
+
+    }
+
+
+    const Point Cluster::getCentroid()
+    {
+        return _centroid;
+    }
+
+    const Point Cluster::computeCentroid()
+    {
+        double sumVal = 0;
+        double averageVal = 0;
+        int sumDim = 0;
+        int averageDim = 0;
+
+        for(currentNode = head; currentNode != nullptr; currentNode = currentNode->next)
+        {
+            sumDim += currentNode->value->getDim();
+        }
+
+        averageDim = sumDim/size;
+
+        currentNode = head;
+        for (int i = 0; i < ((currentNode->value)->getDim()); i++)
+        {
+
+
+            for (currentNode = head; currentNode != nullptr; currentNode = currentNode->next)
+            {
+                sumVal += (currentNode->value->getValue(i));
+
+            }
+
+            averageVal = sumVal/size;
+
+            _centroid.setValue(i, averageVal);
+
+            currentNode = head;
+            sumVal = 0;
+            averageVal= 0;
+        }
+
+        return _centroid;
+    }
+
+    unsigned int Cluster::_idGenerator()
+    {
+        static unsigned int id = 1;
+
+        id++;
+
+        return id;
 
     }
 };

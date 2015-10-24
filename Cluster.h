@@ -13,10 +13,10 @@ typedef struct Lnode* LnodePtr;
 
 
     struct Lnode {
-        //nodePtr before;
+
         LnodePtr next;
         pointPtr value;
-        //node(pointPtr pt,nodePtr n) : value(pt), (n) {}
+        //Lnode(pointPtr pt,nodePtr n) : value(pt), (n) {}
     };
 
 
@@ -24,9 +24,13 @@ typedef struct Lnode* LnodePtr;
         LnodePtr head;
         LnodePtr currentNode;
         int size;
+        Point _centroid;
+        unsigned int _id;
+
+
     public:
         //Default Constructor
-        Cluster() : head(nullptr), size(0) { };
+        Cluster() : head(nullptr), size(0), _id(_idGenerator()) { };
 
         //Copy Constructor
         Cluster(const Cluster&);
@@ -51,6 +55,13 @@ typedef struct Lnode* LnodePtr;
         friend const Cluster operator-(const Cluster &lhs, const Cluster &rhs);
         friend const Cluster operator+(const Cluster &lhs, const pointPtr &rhs);
         friend const Cluster operator-(const Cluster &lhs, const pointPtr &rhs);
+
+        void setCentroid(const Point &point);
+        const Point getCentroid();
+        const Point computeCentroid();
+
+        unsigned int _idGenerator();
+
     };
 
 };
