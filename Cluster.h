@@ -10,6 +10,8 @@
 namespace Clustering{
 typedef Clustering::Point* pointPtr;
 typedef struct Lnode* LnodePtr;
+    class Move;
+
 
 
     struct Lnode {
@@ -61,6 +63,22 @@ typedef struct Lnode* LnodePtr;
         const Point computeCentroid();
 
         unsigned int _idGenerator();
+
+
+        class Move
+        {
+        private:
+            Cluster *move_to;
+            Cluster *move_from;
+            pointPtr movePoint;
+
+        public:
+
+            Move(const pointPtr &ptr, Cluster *from, Cluster *to);
+            void Perform();
+
+
+        };
 
     };
 

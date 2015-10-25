@@ -98,20 +98,21 @@ namespace Clustering {
 
         for(currentNode = head; currentNode!=nullptr; currentNode = currentNode->next)
         {
-            if ( *(head->value) == *sourcePoint)
+            if ( (head->value) == sourcePoint)
             {
                 deleteNode->next = head;
                 head = head->next;
                 size--;
 
                 delete deleteNode;
+                return;
 
             }
             else if( currentNode->next == nullptr)
             {
                 return;
             }
-            else if( (*(currentNode->next)->value) == *sourcePoint )
+            else if( ((currentNode->next)->value) == sourcePoint )
             {
                 if(currentNode == head)
                 {
@@ -119,6 +120,7 @@ namespace Clustering {
                     head = ((currentNode->next)->next);
                     delete deleteNode;
                     size--;
+                    return;
                 }
                 else
                 {
@@ -126,6 +128,7 @@ namespace Clustering {
                     (currentNode->next) = ((currentNode->next)->next);
                     delete deleteNode;
                     size--;
+                    return;
                 }
             }
 
@@ -143,27 +146,11 @@ namespace Clustering {
         {
 
             cout << *(cluster.currentNode->value);
-            cout << endl;
+            cout << ": " << cluster._id << endl;
 
         }
 
 
-
-
-
-
-
-
-
-
-        /*for (int i = 0; i < cluster.size; i++) {
-
-            for (int j = 0; j < (((cluster.currentNode)->value)->getDim()); j++) {
-                os << (((cluster.currentNode)->value)->getValue(j)) << " ";
-            }
-            std::cout << std::endl;
-            cluster.currentNode = cluster.currentNode->next;
-        }*/
 
         return os;
     }
@@ -433,13 +420,29 @@ namespace Clustering {
 
     unsigned int Cluster::_idGenerator()
     {
-        static unsigned int id = 1;
+        static unsigned int id = 0;
 
         id++;
 
         return id;
 
     }
+
+    Cluster::Move::Move(const pointPtr &ptr, Cluster *from, Cluster *to)
+    {
+        movePoint = ptr;
+        move_from = from;
+        move_to = to;
+
+    }
+
+
+    void Cluster::Move::Perform()
+    {
+        move_from->remove(movePoint);
+        move_to->add(movePoint);
+    }
+
 };
 
 

@@ -60,20 +60,52 @@ int main() {
 
 */
 
-    Cluster myCluster;
+    Cluster myCluster1;
+    Cluster myCluster2;
+
+    stringstream myStream("1.2,3.4,5.5,90");
+
+    myStream >> myCluster2;
 
     Point myPoint;
-    //myPoint
+    myPoint.setValue(0,12.3);
+
+    myCluster2.add(&myPoint);
+
+
+
+
+
 
     ifstream inFile("points.txt");
 
-    inFile >> myCluster;
+    inFile >> myCluster1;
 
-    //cout << myCluster;
+
+    cout << myCluster1;
+    cout << myCluster2;
+
+    Cluster::Move myMove(&myPoint, &myCluster2, &myCluster1);
+
+    myMove.Perform();
+
+    cout << myCluster1;
+    cout << myCluster2;
+
+
+
+
+
+
+
+
+
+    /*cout << myCluster;
 
     myCluster.computeCentroid();
 
-    cout << (myCluster.getCentroid());
+    cout << (myCluster.getCentroid());*/
+
 
 
 
