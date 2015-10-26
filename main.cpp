@@ -76,7 +76,7 @@ int main() {
 
     inFile >> myCluster1;
 
-    cout << myCluster1.intraClusterDistance();
+    cout << interClusterDistance(myCluster1, myCluster2);
 
 
 

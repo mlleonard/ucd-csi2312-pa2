@@ -488,6 +488,57 @@ namespace Clustering {
 
         return sum;
     }
+
+    double interClusterDistance(const Cluster &c1, const Cluster &c2)
+    {
+        LnodePtr traverseNode;
+        LnodePtr traverseNode_2;
+        double sum = 0;
+
+        if (c1.size >= c2.size)
+        {
+            for ( traverseNode = c2.head; traverseNode != nullptr; traverseNode = traverseNode->next)
+            {
+                for( traverseNode_2 = c1.head; traverseNode_2 != nullptr; traverseNode_2 = traverseNode_2->next)
+                {
+                    sum += traverseNode->value->distanceTo(*(traverseNode_2->value));
+                }
+            }
+        }
+        else
+        {
+            for ( traverseNode = c1.head; traverseNode != nullptr; traverseNode = traverseNode->next)
+            {
+                for( traverseNode_2 = c2.head; traverseNode_2 != nullptr; traverseNode_2 = traverseNode_2->next)
+                {
+                    sum += traverseNode->value->distanceTo(*(traverseNode_2->value));
+                }
+            }
+
+        }
+
+        return sum;
+
+    }
+
+    int Cluster::getClusterEdges()
+    {
+        int edges = 0;
+
+        edges = (size*(size-1))/2;
+
+        return edges;
+    }
+
+    double interClusterEdges(const Cluster &c1, const Cluster &c2)
+    {
+        double edges = 0;
+
+
+
+
+        return edges;
+    }
 };
 
 

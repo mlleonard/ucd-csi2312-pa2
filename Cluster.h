@@ -84,9 +84,9 @@ typedef struct Lnode* LnodePtr;
 
         void pickPoints(int k, pointPtr pointArray[]);
         double intraClusterDistance()const;
-        double interClusterDistance(const Cluster &c1, const Cluster &c2);
+        friend double interClusterDistance(const Cluster &c1, const Cluster &c2);
         int getClusterEdges();
-        double interClusterEdges(const Cluster &c1, const Cluster &c2);
+        friend double interClusterEdges(const Cluster &c1, const Cluster &c2);
 
 
     };
