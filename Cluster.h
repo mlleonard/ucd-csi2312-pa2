@@ -39,6 +39,8 @@ typedef struct Lnode* LnodePtr;
         Cluster &operator=(const Cluster&);
         ~Cluster();
 
+        int getSize() { return size; }
+
         void add(const pointPtr sourcePoint);
         void remove(const pointPtr sourcePoint);
 
@@ -79,6 +81,13 @@ typedef struct Lnode* LnodePtr;
 
 
         };
+
+        void pickPoints(int k, pointPtr pointArray[]);
+        double intraClusterDistance()const;
+        double interClusterDistance(const Cluster &c1, const Cluster &c2);
+        int getClusterEdges();
+        double interClusterEdges(const Cluster &c1, const Cluster &c2);
+
 
     };
 

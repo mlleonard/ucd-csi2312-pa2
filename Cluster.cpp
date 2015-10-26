@@ -100,7 +100,7 @@ namespace Clustering {
         {
             if ( (head->value) == sourcePoint)
             {
-                deleteNode->next = head;
+                deleteNode = head;
                 head = head->next;
                 size--;
 
@@ -117,7 +117,7 @@ namespace Clustering {
                 if(currentNode == head)
                 {
                     deleteNode = currentNode->next;
-                    head = ((currentNode->next)->next);
+                    currentNode->next = deleteNode->next;
                     delete deleteNode;
                     size--;
                     return;
@@ -443,6 +443,73 @@ namespace Clustering {
         move_to->add(movePoint);
     }
 
+    void Cluster::pickPoints(int k, pointPtr pointArray[])
+    {
+        double sumVal = 0;
+        double averageVal = 0;
+        int clusterSections;
+        int count  = 0;
+
+        clusterSections = k/size;
+
+        currentNode = head;
+        while (currentNode != nullptr)
+
+            {for (int i = 0; i < k; i++) {
+                pointArray[i] = (currentNode->value);
+
+                while (count < (k+1) && currentNode != nullptr)
+                {
+                    currentNode = currentNode->next;
+                    count ++;
+                }
+                count = 0;
+            }
+        }
+
+
+    }
+
+
+    double Cluster::intraClusterDistance() const
+    {
+        LnodePtr traverseNode;
+        LnodePtr traverseNode_2;
+        double sum = 0;
+
+        for ( traverseNode = head; traverseNode != nullptr; traverseNode = traverseNode->next)
+        {
+            for( traverseNode_2 = traverseNode->next; traverseNode_2 != nullptr; traverseNode_2 = traverseNode_2->next)
+            {
+                sum += traverseNode->value->distanceTo(*(traverseNode_2->value));
+            }
+
+        }
+
+        return sum;
+    }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

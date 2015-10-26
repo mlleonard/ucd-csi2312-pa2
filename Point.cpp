@@ -103,12 +103,16 @@ namespace Clustering {
         value_type sum = 0;
         value_type distance = 0;
 
-        for (int i = 0; i < dim; i++) {
+        for (int i = 0; i < dim; i++)
+        {
+            cout << other.getValue(i) << " ";
+            cout << valuesArray[i] << endl;
             sum += pow((other.getValue(i) - valuesArray[i]), 2);
         }
 
         distance = sqrt(sum);
 
+        cout << distance << endl;
         return distance;
     }
 

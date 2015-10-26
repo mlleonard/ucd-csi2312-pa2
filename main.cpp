@@ -72,28 +72,26 @@ int main() {
 
     myCluster2.add(&myPoint);
 
-
-
-
-
-
     ifstream inFile("points.txt");
 
     inFile >> myCluster1;
 
-
-    cout << myCluster1;
-    cout << myCluster2;
-
-    Cluster::Move myMove(&myPoint, &myCluster2, &myCluster1);
-
-    myMove.Perform();
-
-    cout << myCluster1;
-    cout << myCluster2;
+    cout << myCluster1.intraClusterDistance();
 
 
 
+
+
+    //cout << myCluster1;
+
+    //cout << myCluster2;
+
+    //Cluster::Move myMove(&myPoint, &myCluster2, &myCluster1);
+
+    //myMove.Perform();
+
+    //cout << myCluster1;
+    //cout << myCluster2;
 
 
 

@@ -60,7 +60,7 @@ namespace Clustering {
 
         const Point operator/(double);
 
-        double &operator[](int index) { return valuesArray[index - 1]; }
+        double &operator[](int index) { return valuesArray[index-1]; }
 
         //friends!
 
