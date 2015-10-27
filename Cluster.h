@@ -28,6 +28,7 @@ typedef struct Lnode* LnodePtr;
         LnodePtr currentNode;
         int size;
         Point _centroid;
+        bool valid;
         unsigned int _id;
 
 

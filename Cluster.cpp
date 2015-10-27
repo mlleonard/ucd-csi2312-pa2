@@ -13,6 +13,7 @@ using std::ifstream;
 using std::string;
 using std::stringstream;
 
+
 namespace Clustering {
 
     Cluster::Cluster(const Cluster &cluster)
@@ -20,6 +21,7 @@ namespace Clustering {
         head = cluster.head;
         currentNode = cluster.currentNode;
         size = cluster.size;
+        _centroid = std::numeric_limits<double>::infinity();
     }
     Cluster& Cluster::operator=(const Cluster& source)
     {
@@ -29,6 +31,7 @@ namespace Clustering {
         {
           this->add(tempNode->value);
         }
+        valid = false;
     }
 
     void Cluster::add(const pointPtr sourcePoint) {
@@ -87,6 +90,7 @@ namespace Clustering {
 
         }
 
+        valid = false;
     }
 
 
@@ -134,6 +138,7 @@ namespace Clustering {
 
         }
 
+        valid = false;
     }
 
     std::ostream &operator<<(std::ostream &os, Cluster &cluster) {
@@ -152,6 +157,7 @@ namespace Clustering {
 
 
 
+        cluster.valid = false;
         return os;
     }
 
@@ -176,6 +182,7 @@ namespace Clustering {
         }
 
 
+        cluster.valid = false;
         return is;
     }
 
@@ -254,6 +261,7 @@ namespace Clustering {
             }
         }
 
+        valid = false;
         return *this;
     }
 
@@ -277,6 +285,7 @@ namespace Clustering {
 
 
 
+        valid = false;
         return *this;
     }
 
@@ -301,6 +310,7 @@ namespace Clustering {
         }
 
 
+        clusterPtr->valid = false;
         return *clusterPtr;
     }
 
@@ -326,6 +336,7 @@ namespace Clustering {
         }
 
 
+        clusterPtr->valid = false;
         return *clusterPtr;
     }
 
@@ -339,6 +350,7 @@ namespace Clustering {
 
         clusterPointer->add(rhs);
 
+        clusterPointer->valid = false;
         return *clusterPointer;
     }
 
@@ -351,6 +363,7 @@ namespace Clustering {
 
         clusterPointer->remove(rhs);
 
+        clusterPointer->valid = false;
         return *clusterPointer;
     }
 
@@ -363,7 +376,6 @@ namespace Clustering {
             delete currentNode;
         }
 
-
         return;
 
     }
@@ -372,7 +384,7 @@ namespace Clustering {
     void Cluster::setCentroid(const Point &point)
     {
         _centroid = point;
-
+        valid = true;
     }
 
 
@@ -415,6 +427,7 @@ namespace Clustering {
             averageVal= 0;
         }
 
+        valid = true;
         return _centroid;
     }
 
@@ -441,6 +454,9 @@ namespace Clustering {
     {
         move_from->remove(movePoint);
         move_to->add(movePoint);
+
+        move_from->valid = false;
+        move_to->valid = false;
     }
 
     void Cluster::pickPoints(int k, pointPtr pointArray[])
@@ -453,10 +469,16 @@ namespace Clustering {
         clusterSections = k/size;
 
         currentNode = head;
-        while (currentNode != nullptr)
+        while (currentNode != nullptr) {
+            for (int i = 0; i < k; i++)
+            {
 
-            {for (int i = 0; i < k; i++) {
                 pointArray[i] = (currentNode->value);
+
+                if(size == (k+1))
+                {
+                    return;
+                }
 
                 while (count < (k+1) && currentNode != nullptr)
                 {

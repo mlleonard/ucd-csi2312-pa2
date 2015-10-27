@@ -83,14 +83,23 @@ namespace Clustering {
                         pointMove.Perform();
                     }
 
+
                     j++;
 
                 }
             }
 
-            //TODO:Create boolean flags for centroid validity
+            for ( int i = 0; i < k; i++)
+            {
+                if (clusterArray[i].valid == false)
+                {
+                    clusterArray[i].computeCentroid();
+                }
+            }
 
             score = myK.computeClusteringScore(clusterArray);
+
+            cout << score;
 
 
 

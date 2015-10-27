@@ -23,29 +23,27 @@ int main() {
 
     pointPtr pointArray[k];
 
+    point_space.pickPoints(k, pointArray);
+
     Cluster* clusterArray[k];
     clusterArray[0] = &point_space;
 
 
-    point_space.pickPoints(k, pointArray);
 
-    for ( int i = 0; i < (k-1); i++)
+
+    for ( int i = 1; i < k; i++)
     {
 
         Cluster *myCluster;
         myCluster = new Cluster;
-        myCluster->setCentroid(*pointArray[i]);
-        clusterArray[i+1] = myCluster;
+        clusterArray[i] = myCluster;
 
     }
 
-
-
-
-
-
-
-
+    for (int i = 0; i < k; i++)
+    {
+        clusterArray[i]->setCentroid(*pointArray[i]);
+    }
 
 
 
