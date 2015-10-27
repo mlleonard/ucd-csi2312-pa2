@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Point.h"
+#include "KMeans.h"
 #include "Cluster.h"
 #include <sstream>
 #include <fstream>
@@ -10,6 +11,50 @@ using namespace Clustering;
 
 
 int main() {
+
+    KMeans myK;
+    int k;
+    Cluster point_space;
+    ifstream inFile("points.txt");
+    inFile >> point_space;
+
+    cout << "Please select a k" << endl;
+    cin >> k;
+
+    pointPtr pointArray[k];
+
+    Cluster* clusterArray[k];
+    clusterArray[0] = &point_space;
+
+
+    point_space.pickPoints(k, pointArray);
+
+    for ( int i = 0; i < (k-1); i++)
+    {
+
+        Cluster *myCluster;
+        myCluster = new Cluster;
+        myCluster->setCentroid(*pointArray[i]);
+        clusterArray[i+1] = myCluster;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //**************Testing general with While Loop*******************
 /*
@@ -59,7 +104,7 @@ int main() {
     delete deleteCluster;
 
 */
-
+/*
     Cluster myCluster1;
     Cluster myCluster2;
 
@@ -67,15 +112,23 @@ int main() {
 
     myStream >> myCluster2;
 
+    Point myPoint;
+    myPoint.setValue(0,12.3);
+
+    myCluster2.add(&myPoint);
+
+
+
+
     ifstream inFile("points.txt");
 
     inFile >> myCluster1;
 
-    cout << myCluster1.getClusterEdges();
+    myCluster1.intraClusterDistance();
 
 
 
-
+*/
 
     //cout << myCluster1;
 

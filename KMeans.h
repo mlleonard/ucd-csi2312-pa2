@@ -8,14 +8,28 @@
 #include "Cluster.h"
 #include <iostream>
 
+
 namespace Clustering{
 
+    class Cluster;
     class KMeans
     {
 
+
     public:
-        static double SCORE_DIFF_THRESHOLD;
-        double computeClusteringScore();
+        double scoreDiff;
+        static const double SCORE_DIFF_THRESHOLD;
+        int k;
+        KMeans() : scoreDiff(SCORE_DIFF_THRESHOLD-1) {};
+
+        double computeClusteringScore(Cluster clusterArray[]);
+        double computeAbsoluteDifference(Cluster clusterArray[], KMeans& myK);
+
+        void setScoreDifference(double);
+        double getScoreDifference() {return scoreDiff;}
+        void setK(int my_k) { k = my_k; }
+        double getK() {return k;}
+
 
     };
 

@@ -11,58 +11,75 @@ using namespace std;
 
 namespace Clustering {
 
+    const double KMeans::SCORE_DIFF_THRESHOLD = 1;
 
-    double KMeans::computeClusteringScore()
+    double KMeans::computeClusteringScore(Cluster clusterArray[])
     {
-        int k = 2;
-        Cluster point_space;
-        ifstream inFile("points.txt");
-        inFile >> point_space;
 
-        cout << "Please select a k" << endl;
+        double intraDisSum = 0;
+        double interDisSum = 0;
+        int intraEdgeSum = 0;
+        double interEdgeSum = 0;
 
-        pointPtr pointArray[k];
+        double score = 0;
 
-        Cluster* clusterArray[k];
-        clusterArray[0] = &point_space;
-        double minDistance;
-        int minCentroidDistance;
-
-
-        point_space.pickPoints(k, pointArray);
-
-        for ( int i = 0; i < (k-1); i++)
+        for( int i = 0; i < k; i++)
         {
-
-            Cluster *myCluster;
-            myCluster = new Cluster;
-            myCluster->setCentroid(*pointArray[i]);
-            clusterArray[i+1] = myCluster;
-
+            intraDisSum += clusterArray[i].intraClusterDistance();
         }
 
-        double score;
-        double scoreDiff = (SCORE_DIFF_THRESHOLD+1);
+        for (int i = 0; i < (k-1); i++)
+        {
+            for (int j = (i+1); j < k; j++)
+            {
+                interDisSum += interClusterDistance(clusterArray[i], clusterArray[j]);
+            }
+        }
 
-        while(scoreDiff >= SCORE_DIFF_THRESHOLD)
+        for (int i = 0; i < k; i++ )
+        {
+           intraEdgeSum += clusterArray[i].getClusterEdges();
+        }
+
+        for( int i = 0; i < (k-1); i++)
+        {
+            for (int j = (i+1); j < k; j++ )
+            {
+                interEdgeSum += interClusterEdges(clusterArray[i], clusterArray[j]);
+            }
+        }
+
+        score = ((intraDisSum/interEdgeSum)/(interDisSum/interEdgeSum));
+
+
+        return score;
+    }
+
+    double KMeans::computeAbsoluteDifference(Cluster clusterArray[], KMeans& myK) {
+
+        double minDistance;
+        int minCentroidDistance;
+        double score;
+
+        while(scoreDiff >= myK.SCORE_DIFF_THRESHOLD)
         {
             for ( int i = 0; i < (k-1); i++)
             {
                 int j = 0;
-                for((clusterArray[i])->currentNode = (clusterArray[i])->head; (clusterArray[i])->currentNode != nullptr; (clusterArray[i])->currentNode = (clusterArray[i])->currentNode->next)
+                for((clusterArray[i]).currentNode = (clusterArray[i]).head; (clusterArray[i]).currentNode != nullptr; (clusterArray[i]).currentNode = (clusterArray[i]).currentNode->next)
                 {
-                    minDistance = (clusterArray[i]->currentNode->value->distanceTo(clusterArray[i]->_centroid));
+                    minDistance = (clusterArray[i].currentNode->value->distanceTo(clusterArray[i]._centroid));
                     minCentroidDistance = i;
 
-                    if((minDistance) > (clusterArray[i]->currentNode->value->distanceTo(clusterArray[j]->_centroid)))
+                    if((minDistance) > (clusterArray[i].currentNode->value->distanceTo(clusterArray[j]._centroid)))
                     {
-                        minDistance = (clusterArray[i]->currentNode->value->distanceTo(clusterArray[j]->_centroid));
+                        minDistance = (clusterArray[i].currentNode->value->distanceTo(clusterArray[j]._centroid));
                         minCentroidDistance = j;
 
                     }
                     if(j != i)
                     {
-                        Cluster::Move pointMove(clusterArray[i]->currentNode->value, clusterArray[i], clusterArray[j]);
+                        Cluster::Move pointMove(clusterArray[i].currentNode->value, &clusterArray[i], &clusterArray[j]);
                         pointMove.Perform();
                     }
 
@@ -70,8 +87,21 @@ namespace Clustering {
 
                 }
             }
-        }
 
+            //TODO:Create boolean flags for centroid validity
+
+            score = myK.computeClusteringScore(clusterArray);
+
+
+
+
+
+        }
         return 0;
+    }
+
+    void KMeans::setScoreDifference(double d)
+    {
+        scoreDiff = d;
     }
 };
