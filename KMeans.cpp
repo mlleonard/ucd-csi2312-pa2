@@ -14,7 +14,7 @@ namespace Clustering {
 
     const double KMeans::SCORE_DIFF_THRESHOLD = 1;
 
-    double KMeans::computeClusteringScore(std::vector<Cluster>& clusterArray)
+    double KMeans::computeClusteringScore(Cluster** clusterArray)
     {
 
         double intraDisSum = 0;
@@ -26,27 +26,27 @@ namespace Clustering {
 
         for( int i = 0; i < k; i++)
         {
-            intraDisSum += clusterArray[i].intraClusterDistance();
+            intraDisSum += clusterArray[i]->intraClusterDistance();
         }
 
         for (int i = 0; i < (k-1); i++)
         {
             for (int j = (i+1); j < k; j++)
             {
-                interDisSum += interClusterDistance(clusterArray[i], clusterArray[j]);
+                interDisSum += interClusterDistance(*clusterArray[i], *clusterArray[j]);
             }
         }
 
         for (int i = 0; i < k; i++ )
         {
-           intraEdgeSum += clusterArray[i].getClusterEdges();
+           intraEdgeSum += clusterArray[i]->getClusterEdges();
         }
 
         for( int i = 0; i < (k-1); i++)
         {
             for (int j = (i+1); j < k; j++ )
             {
-                interEdgeSum += interClusterEdges(clusterArray[i], clusterArray[j]);
+                interEdgeSum += interClusterEdges(*clusterArray[i], *clusterArray[j]);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Clustering {
         return score;
     }
 
-    double KMeans::computeAbsoluteDifference(std::vector<Cluster>& clusterArray, KMeans& myK) {
+    double KMeans::computeAbsoluteDifference(Cluster** clusterArray, KMeans& myK) {
 
         double minDistance;
         int minCentroidDistance;
@@ -69,21 +69,23 @@ namespace Clustering {
             cout << k;
             for ( int i = 0; i < (k-1); i++)
             {
-                int j = 0;
-                for((clusterArray[i]).currentNode = (clusterArray[i]).head; (clusterArray[i]).currentNode != nullptr; (clusterArray[i]).currentNode = (clusterArray[i]).currentNode->next)
+
+                for(((clusterArray[i])->currentNode = (clusterArray[i])->head); ((clusterArray[i])->currentNode != nullptr); ((clusterArray[i])->currentNode = (clusterArray[i])->currentNode->next))
                 {
-                    minDistance = (clusterArray[i].currentNode->value->distanceTo(clusterArray[i]._centroid));
+                    minDistance = (clusterArray[i]->currentNode->value->distanceTo(clusterArray[i]->_centroid));
                     minCentroidDistance = i;
 
-                    if((minDistance) > (clusterArray[i].currentNode->value->distanceTo(clusterArray[j]._centroid)))
+                    int j = 0;
+
+                    if((minDistance) > (clusterArray[i]->currentNode->value->distanceTo(clusterArray[j]->_centroid)))
                     {
-                        minDistance = (clusterArray[i].currentNode->value->distanceTo(clusterArray[j]._centroid));
+                        minDistance = (clusterArray[i]->currentNode->value->distanceTo(clusterArray[j]->_centroid));
                         minCentroidDistance = j;
 
                     }
                     if(j != i)
                     {
-                        Cluster::Move pointMove(clusterArray[i].currentNode->value, &clusterArray[i], &clusterArray[j]);
+                        Cluster::Move pointMove(clusterArray[i]->currentNode->value, clusterArray[i], clusterArray[j]);
                         pointMove.Perform();
                     }
 
@@ -95,9 +97,9 @@ namespace Clustering {
 
             for ( int i = 0; i < k; i++)
             {
-                if (clusterArray[i].valid == false)
+                if (clusterArray[i]->valid == false)
                 {
-                    clusterArray[i].computeCentroid();
+                    clusterArray[i]->computeCentroid();
                 }
             }
 

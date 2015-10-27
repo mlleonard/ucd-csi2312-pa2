@@ -16,6 +16,7 @@ int main() {
     KMeans myK;
     int k;
     Cluster point_space;
+
     ifstream inFile("points.txt");
     inFile >> point_space;
 
@@ -28,11 +29,10 @@ int main() {
 
     point_space.pickPoints(k, pointArray);
 
-    //Cluster clusterArray[k];
-    std::vector<Cluster> clusterArray;
-    //clusterArray.resize(k);
-    //clusterArray[0] = point_space;
-    clusterArray.push_back(point_space);
+    Cluster *clusterArray[k];
+
+    clusterArray[0] = &point_space;
+
 
 
 
@@ -41,18 +41,18 @@ int main() {
 
         Cluster *myCluster;
         myCluster = new Cluster;
-        //clusterArray[i] = (*myCluster);
-        clusterArray.push_back(*myCluster);
+        clusterArray[i] = (myCluster);
+        //clusterArray.push_back(*myCluster);
 
     }
 
 
     for (int i = 0; i < k; i++)
     {
-        clusterArray[i].setCentroid(*pointArray[i]);
+        clusterArray[i]->setCentroid(*pointArray[i]);
     }
 
-    //myK.computeAbsoluteDifference(clusterArray, myK);
+    myK.computeAbsoluteDifference(clusterArray, myK);
 
 
 

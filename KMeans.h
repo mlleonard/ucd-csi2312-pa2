@@ -23,8 +23,8 @@ namespace Clustering{
         int k;
         KMeans() : scoreDiff(SCORE_DIFF_THRESHOLD-1) {};
 
-        double computeClusteringScore(std::vector<Cluster>& clusterArray);
-        double computeAbsoluteDifference(std::vector<Cluster>& clusterArray, KMeans& myK);
+        double computeClusteringScore(Cluster** clusterArray);
+        double computeAbsoluteDifference(Cluster** clusterArray, KMeans& myK);
 
         void setScoreDifference(double);
         double getScoreDifference() {return scoreDiff;}
