@@ -4,6 +4,7 @@
 #include "Cluster.h"
 #include <sstream>
 #include <fstream>
+#include <vector>
 
 
 using namespace std;
@@ -21,12 +22,16 @@ int main() {
     cout << "Please select a k" << endl;
     cin >> k;
 
-    pointPtr pointArray[k];
+    myK.setK(k);
+
+    pointPtr pointArray[k+1];
 
     point_space.pickPoints(k, pointArray);
 
-    Cluster* clusterArray[k];
-    clusterArray[0] = &point_space;
+    //Cluster clusterArray[k];
+    std::vector<Cluster> clusterArray;
+    clusterArray.resize(k);
+    clusterArray[0] = point_space;
 
 
 
@@ -36,14 +41,16 @@ int main() {
 
         Cluster *myCluster;
         myCluster = new Cluster;
-        clusterArray[i] = myCluster;
+        clusterArray[i] = *myCluster;
 
     }
 
     for (int i = 0; i < k; i++)
     {
-        clusterArray[i]->setCentroid(*pointArray[i]);
+        clusterArray[i].setCentroid(*pointArray[i]);
     }
+
+    myK.computeAbsoluteDifference(clusterArray, myK);
 
 
 

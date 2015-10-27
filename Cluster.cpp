@@ -466,7 +466,7 @@ namespace Clustering {
         int clusterSections;
         int count  = 0;
 
-        clusterSections = k/size;
+        clusterSections = size/k;
 
         currentNode = head;
         while (currentNode != nullptr) {
@@ -475,18 +475,24 @@ namespace Clustering {
 
                 pointArray[i] = (currentNode->value);
 
-                if(size == (k+1))
+                if(size == (clusterSections))
                 {
                     return;
                 }
 
-                while (count < (k+1) && currentNode != nullptr)
+                while (count < (clusterSections) && currentNode->next != nullptr)
                 {
                     currentNode = currentNode->next;
                     count ++;
                 }
                 count = 0;
             }
+
+
+            pointArray[k-1] = (currentNode->value);
+
+            currentNode = nullptr;
+
         }
 
 

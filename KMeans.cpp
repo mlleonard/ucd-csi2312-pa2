@@ -7,13 +7,14 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 namespace Clustering {
 
     const double KMeans::SCORE_DIFF_THRESHOLD = 1;
 
-    double KMeans::computeClusteringScore(Cluster clusterArray[])
+    double KMeans::computeClusteringScore(std::vector<Cluster>& clusterArray)
     {
 
         double intraDisSum = 0;
@@ -55,14 +56,17 @@ namespace Clustering {
         return score;
     }
 
-    double KMeans::computeAbsoluteDifference(Cluster clusterArray[], KMeans& myK) {
+    double KMeans::computeAbsoluteDifference(std::vector<Cluster>& clusterArray, KMeans& myK) {
 
         double minDistance;
         int minCentroidDistance;
-        double score;
+        double score = 0;
+        scoreDiff = SCORE_DIFF_THRESHOLD+1;
 
         while(scoreDiff >= myK.SCORE_DIFF_THRESHOLD)
         {
+            cout << "in here";
+            cout << k;
             for ( int i = 0; i < (k-1); i++)
             {
                 int j = 0;
@@ -97,9 +101,14 @@ namespace Clustering {
                 }
             }
 
-            score = myK.computeClusteringScore(clusterArray);
+            score -= abs(myK.computeClusteringScore(clusterArray));
 
             cout << score;
+
+            scoreDiff = score;
+
+
+
 
 
 
