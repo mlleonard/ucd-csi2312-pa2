@@ -24,15 +24,15 @@ int main() {
 
     myK.setK(k);
 
-    pointPtr pointArray[k+1];
+    pointPtr pointArray[k];
 
     point_space.pickPoints(k, pointArray);
 
     //Cluster clusterArray[k];
     std::vector<Cluster> clusterArray;
-    clusterArray.resize(k);
-    clusterArray[0] = point_space;
-
+    //clusterArray.resize(k);
+    //clusterArray[0] = point_space;
+    clusterArray.push_back(point_space);
 
 
 
@@ -41,16 +41,18 @@ int main() {
 
         Cluster *myCluster;
         myCluster = new Cluster;
-        clusterArray[i] = *myCluster;
+        //clusterArray[i] = (*myCluster);
+        clusterArray.push_back(*myCluster);
 
     }
+
 
     for (int i = 0; i < k; i++)
     {
         clusterArray[i].setCentroid(*pointArray[i]);
     }
 
-    myK.computeAbsoluteDifference(clusterArray, myK);
+    //myK.computeAbsoluteDifference(clusterArray, myK);
 
 
 
