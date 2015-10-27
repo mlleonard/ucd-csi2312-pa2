@@ -523,9 +523,9 @@ namespace Clustering {
 
     int Cluster::getClusterEdges()
     {
-        int edges = 0;
+        int edges;
 
-        edges = (size*(size-1))/2;
+        edges = ((size*(size-1))/2);
 
         return edges;
     }
@@ -534,8 +534,7 @@ namespace Clustering {
     {
         double edges = 0;
 
-
-
+        edges = c1.size * c2.size;
 
         return edges;
     }

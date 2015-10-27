@@ -67,16 +67,11 @@ int main() {
 
     myStream >> myCluster2;
 
-    Point myPoint;
-    myPoint.setValue(0,12.3);
-
-    myCluster2.add(&myPoint);
-
     ifstream inFile("points.txt");
 
     inFile >> myCluster1;
 
-    cout << interClusterDistance(myCluster1, myCluster2);
+    cout << myCluster1.getClusterEdges();
 
 
 

@@ -6,6 +6,7 @@
 #define _CLUSTER_H
 
 #include "Point.h"
+#include "Kmeans.h"
 
 namespace Clustering{
 typedef Clustering::Point* pointPtr;
@@ -87,6 +88,8 @@ typedef struct Lnode* LnodePtr;
         friend double interClusterDistance(const Cluster &c1, const Cluster &c2);
         int getClusterEdges();
         friend double interClusterEdges(const Cluster &c1, const Cluster &c2);
+
+        friend class KMeans;
 
 
     };
