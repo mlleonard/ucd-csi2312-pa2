@@ -12,7 +12,6 @@ namespace Clustering{
 
     class KMeans
     {
-        typedef Clustering::Cluster* clusterPtr;
 
     public:
         static double SCORE_DIFF_THRESHOLD;
