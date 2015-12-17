@@ -6,6 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "Exception.h"
+
 
 using std::cout;
 using std::endl;
@@ -25,84 +27,143 @@ namespace Clustering {
     }
     Cluster& Cluster::operator=(const Cluster& source)
     {
+
         LnodePtr tempNode;
 
-        for(tempNode = source.head; tempNode!= nullptr; tempNode = tempNode->next)
+        this->_points.assign(source._points.begin(), source._points.end());
+
+//
+//        for(tempNode = source.head; tempNode!= nullptr; tempNode = tempNode->next)
+//        {
+//
+//            this->add(*tempNode->value);
+//        }
+        valid = false;
+    }
+
+    void Cluster::add(const Point & sourcePoint) {
+
+        auto it2 = (this->_points.begin()++);
+
+        if(*this->_points.begin() > sourcePoint)
         {
-          this->add(tempNode->value);
+            this->_points.push_front(sourcePoint);
         }
+
+            //Todo create another else if statement here for if the sourcepoint is less than
+            //it so that we iterate through the objects in points accurately??
+
+        else
+        {
+            for ( auto it = this->_points.begin(); it != this->_points; it++)
+            {
+                if(*it2 > sourcePoint)
+                {
+                    this->_points.insert_after(it, sourcePoint);
+
+                }
+            }
+        }
+
+        for(auto it = this->_points.begin(); it != this->_points.end(); it++)
+        {
+            if(*it > sourcePoint)
+            {
+                this->_points.
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        LnodePtr newNode;
+//        newNode = new Lnode;
+//        currentNode = head;
+//        if (size == 0) {
+//
+//            *(newNode->value) = sourcePoint;
+//
+//            (newNode->next) = nullptr;
+//            head = newNode;
+//            size++;
+//            return;
+//
+//        }
+//
+//
+//        for (currentNode = head; currentNode != nullptr; currentNode = currentNode->next) {
+//            if (size == 1) {
+//                if ((*(currentNode->value) > (sourcePoint))) {
+//                    *(newNode->value) = sourcePoint;
+//                    (newNode->next) = currentNode;
+//                    head = newNode;
+//                }
+//                else {
+//                    *(newNode->value) = sourcePoint;
+//                    (newNode->next) = nullptr;
+//                    (currentNode->next) = newNode;
+//                }
+//                size++;
+//                return;
+//            }
+//
+//            if ((currentNode->next) == nullptr) {
+//
+//                *(newNode->value) = sourcePoint;
+//                (newNode->next) = nullptr;
+//                (currentNode->next) = newNode;
+//
+//                size++;
+//
+//                return;
+//            }
+//
+//            else if (*((currentNode->next)->value) > (sourcePoint)) {
+//
+//                *(newNode->value) = sourcePoint;   //set value in newNode to sourcePoint
+//                (newNode->next) = (currentNode->next);     //set tempNode Ptr to nex node
+//                (currentNode->next) = newNode;
+//
+//                size++;
+//
+//                return;
+//            }
+//
+//        }
+
         valid = false;
     }
 
-    void Cluster::add(const pointPtr sourcePoint) {
-
-        LnodePtr newNode;
-        newNode = new Lnode;
-        currentNode = head;
-        if (size == 0) {
-            (newNode->value) = sourcePoint;
-
-            (newNode->next) = nullptr;
-            head = newNode;
-            size++;
-            return;
-
-        }
 
 
-        for (currentNode = head; currentNode != nullptr; currentNode = currentNode->next) {
-            if (size == 1) {
-                if ((*(currentNode->value) > (*sourcePoint))) {
-                    (newNode->value) = sourcePoint;
-                    (newNode->next) = currentNode;
-                    head = newNode;
-                }
-                else {
-                    (newNode->value) = sourcePoint;
-                    (newNode->next) = nullptr;
-                    (currentNode->next) = newNode;
-                }
-                size++;
-                return;
-            }
-
-            if ((currentNode->next) == nullptr) {
-
-                (newNode->value) = sourcePoint;
-                (newNode->next) = nullptr;
-                (currentNode->next) = newNode;
-
-                size++;
-
-                return;
-            }
-
-            else if (*((currentNode->next)->value) > (*sourcePoint)) {
-
-                (newNode->value) = sourcePoint;   //set value in newNode to sourcePoint
-                (newNode->next) = (currentNode->next);     //set tempNode Ptr to nex node
-                (currentNode->next) = newNode;
-
-                size++;
-
-                return;
-            }
-
-        }
-
-        valid = false;
-    }
-
-
-
-    void Cluster::remove(const pointPtr sourcePoint) {
+    void Cluster::remove(const Point & sourcePoint) {
         LnodePtr deleteNode;
         deleteNode = new Lnode;
+
+        try {
+            if (size == 0) {
+                throw RemoveFromEmptyEx("Cluster remove when empty Error", this->_id);
+            }
+        }catch(RemoveFromEmptyEx &cException)
+        {
+            std::cout << cException;
+        }
 
 
         for(currentNode = head; currentNode!=nullptr; currentNode = currentNode->next)
         {
-            if ( (head->value) == sourcePoint)
+            if ( *(head->value) == sourcePoint)
             {
                 deleteNode = head;
                 head = head->next;
@@ -116,7 +177,7 @@ namespace Clustering {
             {
                 return;
             }
-            else if( ((currentNode->next)->value) == sourcePoint )
+            else if( (*(currentNode->next)->value) == sourcePoint )
             {
                 if(currentNode == head)
                 {
@@ -177,7 +238,7 @@ namespace Clustering {
 
             lineStream >> *tempPoint;
 
-            cluster.add(tempPoint);
+            cluster.add(*tempPoint);
 
         }
 
@@ -255,7 +316,7 @@ namespace Clustering {
             {
                 if(currentNode->value != rhsPtr->value)
                 {
-                    this->add(rhsPtr->value);
+                    this->add(*rhsPtr->value);
                 }
 
             }
@@ -277,7 +338,7 @@ namespace Clustering {
             {
                 if(currentNode->value == rhsPtr->value)
                 {
-                    this->remove(rhsPtr->value);
+                    this->remove(*rhsPtr->value);
                 }
 
             }
@@ -304,7 +365,7 @@ namespace Clustering {
             for(rhsPtr = rhs.head; rhsPtr != nullptr; rhsPtr = rhsPtr->next)
             {
 
-                clusterPtr->add(rhsPtr->value);
+                clusterPtr->add(*rhsPtr->value);
 
             }
         }
@@ -330,7 +391,7 @@ namespace Clustering {
             {
                 if(lhsPtr->value == rhsPtr->value)
                 {
-                    clusterPtr->remove(rhsPtr->value);
+                    clusterPtr->remove(*rhsPtr->value);
                 }
             }
         }
@@ -348,7 +409,7 @@ namespace Clustering {
 
         (*clusterPointer)=lhs;
 
-        clusterPointer->add(rhs);
+        clusterPointer->add(*rhs);
 
         clusterPointer->valid = false;
         return *clusterPointer;
@@ -361,7 +422,7 @@ namespace Clustering {
 
         (*clusterPointer)=lhs;
 
-        clusterPointer->remove(rhs);
+        clusterPointer->remove(*rhs);
 
         clusterPointer->valid = false;
         return *clusterPointer;
@@ -395,6 +456,15 @@ namespace Clustering {
 
     const Point Cluster::computeCentroid()
     {
+        try {
+            if (size == 0) {
+                throw RemoveFromEmptyEx("Cluster computeCentroid when empty Error", this->_id);
+            }
+        }catch(RemoveFromEmptyEx &cException)
+        {
+            std::cout << cException;
+        }
+
         double sumVal = 0;
         double averageVal = 0;
         int sumDim = 0;
@@ -452,8 +522,8 @@ namespace Clustering {
 
     void Cluster::Move::Perform()
     {
-        move_from->remove(movePoint);
-        move_to->add(movePoint);
+        move_from->remove(*movePoint);
+        move_to->add(*movePoint);
 
         move_from->valid = false;
         move_to->valid = false;
@@ -567,7 +637,6 @@ namespace Clustering {
         return edges;
     }
 };
-
 
 
 

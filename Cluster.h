@@ -7,10 +7,11 @@
 
 #include "Point.h"
 #include "Kmeans.h"
+#include <forward_list>
 
 namespace Clustering{
-typedef Clustering::Point* pointPtr;
-typedef struct Lnode* LnodePtr;
+    typedef Clustering::Point* pointPtr;
+    typedef struct Lnode* LnodePtr;
     class Move;
 
 
@@ -30,6 +31,7 @@ typedef struct Lnode* LnodePtr;
         Point _centroid;
         bool valid;
         unsigned int _id;
+        std::forward_list<Point> _points;
 
 
     public:
@@ -43,8 +45,8 @@ typedef struct Lnode* LnodePtr;
 
         int getSize() { return size; }
 
-        void add(const pointPtr sourcePoint);
-        void remove(const pointPtr sourcePoint);
+        void add(const Point &sourcePoint);
+        void remove(const Point &sourcePoint);
 
         friend std::ostream &operator<<(std::ostream &os, Cluster &cluster);
 

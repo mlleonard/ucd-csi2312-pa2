@@ -5,6 +5,7 @@
 #ifndef POINT_H
 #define POINT_H
 #include <iostream>
+#include <vector>
 
 namespace Clustering {
 
@@ -14,6 +15,8 @@ namespace Clustering {
         int dim;
         size_type DEFAULT_DIM;
         value_type *valuesArray;
+        std::vector<double> _values;
+        unsigned int _id;
 
     public:
         //default constructor
@@ -33,12 +36,16 @@ namespace Clustering {
         //destructor
         ~Point();
 
+        unsigned int _idgenerator();
+
+        void rewindIdGen();
+
         //member functions for dArray
         //size_type getDEFAULT_DIM() const { return DEFAULT_DIM; }
 
         size_type getDim() const { return dim; }
 
-        value_type getValue(size_type i) const { return valuesArray[i]; }
+        value_type getValue(size_type i) const { return _values[i]; }
 
         void setValue(int dimEntry, double valueEntry );
 
@@ -60,7 +67,7 @@ namespace Clustering {
 
         const Point operator/(double);
 
-        double &operator[](int index) { return valuesArray[index-1]; }
+        double &operator[](int index);
 
         //friends!
 

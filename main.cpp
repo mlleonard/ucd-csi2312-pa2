@@ -61,8 +61,6 @@ int main() {
 
 
 
-
-
     //**************Testing general with While Loop*******************
 /*
     int numOfPoints;    // number of points being input by the user

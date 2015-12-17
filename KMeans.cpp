@@ -39,7 +39,7 @@ namespace Clustering {
 
         for (int i = 0; i < k; i++ )
         {
-           intraEdgeSum += clusterArray[i]->getClusterEdges();
+            intraEdgeSum += clusterArray[i]->getClusterEdges();
         }
 
         for( int i = 0; i < (k-1); i++)
@@ -66,7 +66,7 @@ namespace Clustering {
         while(scoreDiff >= myK.SCORE_DIFF_THRESHOLD)
         {
             cout << "in here";
-            cout << k;
+            //cout << k;
             for ( int i = 0; i < (k-1); i++)
             {
 
@@ -108,13 +108,6 @@ namespace Clustering {
             cout << score;
 
             scoreDiff = score;
-
-
-
-
-
-
-
 
         }
         return 0;
